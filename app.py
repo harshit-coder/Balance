@@ -22,6 +22,7 @@ conn = psycopg2.connect(
     password="3a2ae2dda46fbf735c5846485e5387ce62e9cf10a99ce3ead179d50807386819")
 
 cur = conn.cursor()
+cur.execute("ROLLBACK")
 
 
 @app.route("/", methods=['GET', 'POST'])
