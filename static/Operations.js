@@ -11,12 +11,12 @@ async function PriceEntry () {
     console.log(typeof ed,ed)
     ed_date = new Date(ed.split("/")[2],ed.split("/")[1]-1,ed.split("/")[0])
     td_date= new Date()
-       if((sp==="0" | sp==="") & (cp==="0" | cp==="") & (gk==="0" | gk==="")){
-        console.log("all are zero")
+       if((sp==="") & (cp==="") & (gk==="")){
+        console.log("all are empty")
         alert("Please enter something")
-        document.getElementById("sp").value = 0
-        document.getElementById("cp").value=0
-        document.getElementById("gk").value=0
+        document.getElementById("sp").value = ""
+        document.getElementById("cp").value=""
+        document.getElementById("gk").value=""
     }
 
     else if(ed_date > td_date){
@@ -40,9 +40,9 @@ async function PriceEntry () {
         const data  = response.data
         console.log(`Added a new Todo!`,data['message']);
         document.getElementById('entry_result').innerHTML = data['message']
-        document.getElementById("sp").value = 0
-        document.getElementById("cp").value=0
-        document.getElementById("gk").value=0
+        document.getElementById("sp").value = ""
+        document.getElementById("cp").value=""
+        document.getElementById("gk").value=""
         document.getElementById("entry_date").value=data['date']
     } catch (errors) {
         console.log(errors);
@@ -95,8 +95,9 @@ async function tables () {
                     d+=`<tr>
                       <td style="height: 78px; font-size: larger;">${ data['l1'][num]['selling_price'] }</td>
                       <td style="height: 78px; font-size: larger;">${ data['l1'][num]['cost_price'] }</td>
-                      <td style="height: 78px; font-size: larger;">${ data['l1'][num]['ghar_kharch'] }</td>
                       <td style="height: 78px; font-size: larger;">${ data['l1'][num]['profit'] }</td>
+                      <td style="height: 78px; font-size: larger;">${ data['l1'][num]['ghar_kharch'] }</td>
+
                                 <td><button type="button" onclick="edit(id=${ data['l1'][num]['id']},sp=${ data['l1'][num]['selling_price'] },cp=${ data['l1'][num]['cost_price'] },gk=${ data['l1'][num]['ghar_kharch'] },profit=${ data['l1'][num]['profit'] },c_date='${all_data['c_date']}')"  data-toggle="modal" data-target="#modal-xl" ><i class="fa-solid fa-pen"></i></button>
                         <button type="button"  onclick="del(${ data['l1'][num]['id']},'${data['date_2']}')" data-toggle="modal" data-target="#modal-sm"><i class="fa-solid fa-trash"></i></button></td>
                     </tr>`
@@ -279,8 +280,9 @@ async function rem(id,c_date){
                     d+=`<tr>
                       <td style="height: 78px; font-size: larger;">${ data['l1'][num]['selling_price'] }</td>
                       <td style="height: 78px; font-size: larger;">${ data['l1'][num]['cost_price'] }</td>
-                      <td style="height: 78px; font-size: larger;">${ data['l1'][num]['ghar_kharch'] }</td>
                       <td style="height: 78px; font-size: larger;">${ data['l1'][num]['profit'] }</td>
+                      <td style="height: 78px; font-size: larger;">${ data['l1'][num]['ghar_kharch'] }</td>
+
                                 <td><button type="button" onclick="edit(${ data['l1'][num]['id']},${ data['l1'][num]['selling_price'] },${ data['l1'][num]['cost_price'] },${ data['l1'][num]['ghar_kharch'] },${ data['l1'][num]['profit'] },'${c_date}')"  data-toggle="modal" data-target="#modal-xl" ><i class="fa-solid fa-pen"></i></button>
                         <button onclick="del(${ data['l1'][num]['id']},'${c_date}')" type="button" data-toggle="modal" data-target="#modal-sm"><i class="fa-solid fa-trash"></i></button></td>
                     </tr>`
@@ -339,8 +341,9 @@ async function update(id,c_date){
                     d+=`<tr>
                       <td style="height: 78px; font-size: larger;">${ data['l1'][num]['selling_price'] }</td>
                       <td style="height: 78px; font-size: larger;">${ data['l1'][num]['cost_price'] }</td>
-                      <td style="height: 78px; font-size: larger;">${ data['l1'][num]['ghar_kharch'] }</td>
                       <td style="height: 78px; font-size: larger;">${ data['l1'][num]['profit'] }</td>
+                      <td style="height: 78px; font-size: larger;">${ data['l1'][num]['ghar_kharch'] }</td>
+
                                 <td><button type="button" onclick="edit(${ data['l1'][num]['id']},${ data['l1'][num]['selling_price'] },${ data['l1'][num]['cost_price'] },${ data['l1'][num]['ghar_kharch'] },${ data['l1'][num]['profit'] },'${c_date}')"  data-toggle="modal" data-target="#modal-xl" ><i class="fa-solid fa-pen"></i></button>
                         <button onclick="delete(${ data['l1'][num]['id']},'${c_date}')" type="button" data-toggle="modal" data-target="#modal-sm"><i class="fa-solid fa-trash"></i></button></td>
                     </tr>`
