@@ -419,6 +419,7 @@ async function PriceEntry1() {
         document.getElementById("add-sp").value = ""
         document.getElementById("add-cp").value=""
         document.getElementById("add-gk").value=""
+        document.getElementById("c_date").value=data['date_2']
         document.getElementById("add_no").click()
     } catch (errors) {
         console.log(errors);
