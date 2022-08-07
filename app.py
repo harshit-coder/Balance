@@ -2,15 +2,12 @@
 # import necessary libraries and functions
 import requests
 import datetime
-import os
+
 import time
 from datetime import date
 
 from flask import Flask, jsonify, request, render_template, url_for
-from flask_mysqldb import MySQL
-from werkzeug.utils import redirect
 
-import templates
 import json
 
 # creating a Flask app
