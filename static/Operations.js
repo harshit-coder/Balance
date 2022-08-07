@@ -36,7 +36,7 @@ async function PriceEntry () {
     };
     console.log(prices)
     try {
-        const response = await axios.post('http://127.0.0.1:5000/', prices);
+        const response = await axios.post('https://dailybalanceapp.herokuapp.com/', prices);
         const data  = response.data
         console.log(`Added a new Todo!`,data['message']);
         document.getElementById('entry_result').innerHTML = data['message']
@@ -75,7 +75,7 @@ async function tables () {
     console.log(all_data)
 
     try {
-        const response = await axios.post('http://127.0.0.1:5000/table', all_data);
+        const response = await axios.post('https://dailybalanceapp.herokuapp.com/table', all_data);
         const data = response.data
         console.log('Added a new Todo!', data);
         console.log(data["date_2"])
@@ -151,7 +151,7 @@ async function result() {
     };
     console.log(r_data)
     try {
-        const response = await axios.post('http://127.0.0.1:5000/result', r_data);
+        const response = await axios.post('https://dailybalanceapp.herokuapp.com/result', r_data);
         const data = response.data
         console.log(`Added a new Todo!`, data);
         document.getElementById("s_date").value=s_date
@@ -262,7 +262,7 @@ async function rem(id,c_date){
     };
     console.log(prices)
     try {
-        const response = await axios.post('http://127.0.0.1:5000/delete', prices);
+        const response = await axios.post('https://dailybalanceapp.herokuapp.com/delete', prices);
         const data  = response.data
         console.log(`Added a new Todo!`,data);
          document.getElementById("balance").innerHTML =`<h4 >Balance:${data["balance"]}</h4>`
@@ -322,7 +322,7 @@ async function update(id,c_date){
     };
     console.log(prices)
     try {
-        const response = await axios.post('http://127.0.0.1:5000/edit', prices);
+        const response = await axios.post('https://dailybalanceapp.herokuapp.com/edit', prices);
         const data  = response.data
         console.log(`Added a new Todo!`,data);
          document.getElementById("balance").innerHTML =`<h4 >Balance:${data["balance"]}</h4>`

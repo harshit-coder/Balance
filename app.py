@@ -19,10 +19,10 @@ import psycopg2
 app = Flask(__name__, template_folder='templates', static_folder='static')
 
 conn = psycopg2.connect(
-    host="localhost",
-    database="Balance",
-    user="postgres",
-    password="ngi@12345")
+    host="ec2-44-208-88-195.compute-1.amazonaws.com",
+    database="d7h8ea9nje87du",
+    user="kiewksyxofbvrr",
+    password="3a2ae2dda46fbf735c5846485e5387ce62e9cf10a99ce3ead179d50807386819")
 
 cur = conn.cursor()
 
@@ -52,7 +52,8 @@ def home():
         cost_price = 0
         ghar_kharch = 0
         today_date = date.today().strftime("%d/%m/%Y")
-        return render_template("Entry.html", selling_price=selling_price, cost_price=cost_price, ghar_kharch=ghar_kharch, date=today_date)
+        return render_template("Entry.html", selling_price=selling_price, cost_price=cost_price,
+                               ghar_kharch=ghar_kharch, date=today_date)
 
 
 @app.route("/table", methods=['GET', 'POST'])
@@ -120,8 +121,10 @@ def results():
         data = request.json
         start_date = data.get('s_date')
         end_date = data.get('e_date')
-        start_date_1 = datetime.date(int(start_date.split("/")[2]), int(start_date.split("/")[1]), int(start_date.split("/")[0]))
-        end_date_1 = datetime.date(int(end_date.split("/")[2]), int(end_date.split("/")[1]), int(end_date.split("/")[0]))
+        start_date_1 = datetime.date(int(start_date.split("/")[2]), int(start_date.split("/")[1]),
+                                     int(start_date.split("/")[0]))
+        end_date_1 = datetime.date(int(end_date.split("/")[2]), int(end_date.split("/")[1]),
+                                   int(end_date.split("/")[0]))
         s_m = start_date_1.strftime("%B")
         e_m = end_date_1.strftime("%B")
 
@@ -141,7 +144,8 @@ def results():
         profit = sum_sp[0] - sum_cp[0]
         balance = sum_gk[0] - profit
         daterange = start_date + "-" + end_date
-        return {'sum_sp': sum_sp[0], 'sum_cp': sum_cp[0], 'sum_gk': sum_gk[0], 'profit': profit, 'balance': balance, 'month': daterange}
+        return {'sum_sp': sum_sp[0], 'sum_cp': sum_cp[0], 'sum_gk': sum_gk[0], 'profit': profit, 'balance': balance,
+                'month': daterange}
 
 
     else:
@@ -174,7 +178,8 @@ def results():
         profit = int(sum_sp[0]) - int(sum_cp[0])
         balance = sum_gk[0] - profit
 
-        return render_template("Result.html", sum_sp=sum_sp[0], sum_cp=sum_cp[0], sum_gk=sum_gk[0], profit=profit, balance=balance, month=prev_mon)
+        return render_template("Result.html", sum_sp=sum_sp[0], sum_cp=sum_cp[0], sum_gk=sum_gk[0], profit=profit,
+                               balance=balance, month=prev_mon)
 
 
 @app.route("/delete", methods=['GET', 'POST'])
@@ -207,7 +212,7 @@ def edit_table():
     conn.commit()
     all_data = {
         "c_date": c_date}
-    res = requests.post(url="http://127.0.0.1:5000/table", json=all_data)
+    res = requests.post(url="https://dailybalanceapp.herokuapp.com/table", json=all_data)
     data = json.loads(res.text)
     return {"l1": data["l1"], "balance": data["balance"], "date_2": all_data["c_date"]}
 
@@ -218,7 +223,6 @@ def dates_range(res, start_date, end_date):
         l1.append(start_date.strftime("%d/%m/%Y"))
         start_date = start_date + datetime.timedelta(days=1)
     return l1
-
 
 
 @app.route("/history", methods=['GET', 'POST'])
@@ -239,7 +243,7 @@ def history():
     if len(l2) > 0:
         for i in l2:
             l1.append({'time': i[6],
-                       'date':i[5],
+                       'date': i[5],
                        'id': i[7],
                        'selling_price': i[0],
                        'cost_price': i[1],
@@ -252,7 +256,6 @@ def history():
         balance = gk - pf
     conn.commit()
     return render_template("History.html", table=l1, balance=balance)
-
 
 
 # driver function
