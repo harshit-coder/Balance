@@ -172,21 +172,14 @@
     //Date picker
     $('#reservationdate').datetimepicker({
         format: 'DD/MM/YYYY'
-    });
-    $( "#reservationdate" ).click(function(event){
-      $(this).removeAttr('readonly').select();
+    }).attr('readonly','readonly');
 
-    });
-    $( "#reservationdate" ).blur(function(event){
-      $(this).attr('readonly', 'readonly');
-
-    });
     $('#reservationdate1').datetimepicker({
         format: 'DD/MM/YYYY'
-    });
+    }).attr('readonly','readonly');
     $('#reservationdate2').datetimepicker({
         format: 'DD/MM/YYYY'
-    });
+    }).attr('readonly','readonly');
 
     //Date and time picker
     $('#reservationdatetime').datetimepicker({ icons: { time: 'far fa-clock' } });
