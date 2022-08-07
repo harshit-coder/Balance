@@ -15,18 +15,21 @@ import psycopg2
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
 
-conn = psycopg2.connect(
-    host="ec2-44-208-88-195.compute-1.amazonaws.com",
-    database="d7h8ea9nje87du",
-    user="kiewksyxofbvrr",
-    password="3a2ae2dda46fbf735c5846485e5387ce62e9cf10a99ce3ead179d50807386819")
 
-cur = conn.cursor()
-cur.execute("ROLLBACK")
+def create_comection():
+    conn = psycopg2.connect(
+        host="ec2-44-208-88-195.compute-1.amazonaws.com",
+        database="d7h8ea9nje87du",
+        user="kiewksyxofbvrr",
+        password="3a2ae2dda46fbf735c5846485e5387ce62e9cf10a99ce3ead179d50807386819")
+    cur = conn.cursor()
+
+    return conn,cur
 
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
+    conn,cur = create_comection()
     if request.method == 'POST':
         print(request.data)
         if request.json:
@@ -42,6 +45,8 @@ def home():
             sql = 'INSERT INTO balance_price (selling_price, cost_price, ghar_kharch, profit,date,time)VALUES (%s, %s, %s, %s,%s, %s)'
             cur.execute(sql, (selling_price, cost_price, ghar_kharch, profit, ed, time_of_inserting))
             conn.commit()
+            cur.close()
+            conn.close()
 
         return {"message": "success", "date": date.today().strftime("%d/%m/%Y")}
 
@@ -50,12 +55,15 @@ def home():
         cost_price = 0
         ghar_kharch = 0
         today_date = date.today().strftime("%d/%m/%Y")
+        cur.close()
+        conn.close()
         return render_template("Entry.html", selling_price=selling_price, cost_price=cost_price,
                                ghar_kharch=ghar_kharch, date=today_date)
 
 
 @app.route("/table", methods=['GET', 'POST'])
 def tables():
+    conn, cur = create_comection()
     l1 = []
     dt = {}
     sp = 0
@@ -88,6 +96,8 @@ def tables():
             balance = gk - pf
 
         conn.commit()
+        cur.close()
+        conn.close()
         return {"l1": l1, "balance": balance, "date_2": date_2}
         # return render_template("Table.html", table=l1, balance=balance, date=date_1)
     else:
@@ -110,11 +120,14 @@ def tables():
                 pf = pf + i[3]
             balance = gk - pf
         conn.commit()
+        cur.close()
+        conn.close()
         return render_template("Table.html", table=l1, balance=balance, date_2=today_date)
 
 
 @app.route("/result", methods=['GET', 'POST'])
 def results():
+    conn, cur = create_comection()
     if request.method == 'POST':
         data = request.json
         start_date = data.get('s_date')
@@ -142,6 +155,8 @@ def results():
         profit = sum_sp[0] - sum_cp[0]
         balance = sum_gk[0] - profit
         daterange = start_date + "-" + end_date
+        cur.close()
+        conn.close()
         return {'sum_sp': sum_sp[0], 'sum_cp': sum_cp[0], 'sum_gk': sum_gk[0], 'profit': profit, 'balance': balance,
                 'month': daterange}
 
@@ -175,13 +190,15 @@ def results():
 
         profit = int(sum_sp[0]) - int(sum_cp[0])
         balance = sum_gk[0] - profit
-
+        cur.close()
+        conn.close()
         return render_template("Result.html", sum_sp=sum_sp[0], sum_cp=sum_cp[0], sum_gk=sum_gk[0], profit=profit,
                                balance=balance, month=prev_mon)
 
 
 @app.route("/delete", methods=['GET', 'POST'])
 def delete_table():
+    conn, cur = create_comection()
     if request.method == "POST":
         data = request.json
         id = data.get("id")
@@ -193,11 +210,14 @@ def delete_table():
             "c_date": c_date}
         res = requests.post(url="http://127.0.0.1:5000/table", json=all_data)
         data = json.loads(res.text)
+        cur.close()
+        conn.close()
         return {"l1": data["l1"], "balance": data["balance"], "date_2": all_data["c_date"]}
 
 
 @app.route("/edit", methods=['GET', 'POST'])
 def edit_table():
+    conn, cur = create_comection()
     data = request.json
     id = data.get("id")
     selling_price = int(data.get("sp"))
@@ -212,6 +232,8 @@ def edit_table():
         "c_date": c_date}
     res = requests.post(url="https://dailybalanceapp.herokuapp.com/table", json=all_data)
     data = json.loads(res.text)
+    cur.close()
+    conn.close()
     return {"l1": data["l1"], "balance": data["balance"], "date_2": all_data["c_date"]}
 
 
@@ -225,6 +247,7 @@ def dates_range(res, start_date, end_date):
 
 @app.route("/history", methods=['GET', 'POST'])
 def history():
+    conn, cur = create_comection()
     l1 = []
     dt = {}
     sp = 0
@@ -253,6 +276,8 @@ def history():
             pf = pf + i[3]
         balance = gk - pf
     conn.commit()
+    cur.close()
+    conn.close()
     return render_template("History.html", table=l1, balance=balance)
 
 
