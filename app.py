@@ -94,7 +94,7 @@ def tables():
                 gk = gk + i[5]
                 pf = pf + i[6]
 
-            balance = gk - pf
+            balance = pf - gk
 
         conn.commit()
         cur.close()
@@ -120,7 +120,7 @@ def tables():
                 cp = cp + i[4]
                 gk = gk + i[5]
                 pf = pf + i[6]
-            balance = gk - pf
+            balance = pf - gk
         conn.commit()
         cur.close()
         conn.close()
@@ -156,7 +156,7 @@ def results():
         sum_gk = cur.fetchone()
         if len(sum_sp)>0 and sum_sp[0] is not None and len(sum_cp)>0 and sum_cp[0] is not None and len(sum_gk)>0 and sum_gk[0] is not None:
             profit = int(sum_sp[0]) - int(sum_cp[0])
-            balance = sum_gk[0] - profit
+            balance = profit - sum_gk[0]
             sp=sum_sp[0]
             cp = sum_cp[0]
             gk = sum_gk[0]
@@ -201,7 +201,7 @@ def results():
         sum_gk = cur.fetchone()
         if len(sum_sp)>0 and sum_sp[0] is not None and len(sum_cp)>0 and sum_cp[0] is not None and len(sum_gk)>0 and sum_gk[0] is not None:
             profit = int(sum_sp[0]) - int(sum_cp[0])
-            balance = sum_gk[0] - profit
+            balance = profit - sum_gk[0]
             sp=sum_sp[0]
             cp = sum_cp[0]
             gk = sum_gk[0]
@@ -296,7 +296,7 @@ def history():
             cp = cp + i[4]
             gk = gk + i[5]
             pf = pf + i[6]
-        balance = gk - pf
+        balance = pf - gk
     conn.commit()
     cur.close()
     conn.close()
