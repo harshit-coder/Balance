@@ -313,7 +313,7 @@ def entry2():
         selling_price = int(data.get("sp")) if data.get("sp") else 0
         cost_price = int(data.get("cp")) if data.get("cp") else 0
         ghar_kharch = int(data.get("gk")) if data.get("gk") else 0
-        ed = today_date = date.today().strftime("%d/%m/%Y")
+        ed = date.today().strftime("%d/%m/%Y")
         profit = selling_price - cost_price
         date_of_inserting = date.today().strftime("%d/%m/%Y")
         time_of_inserting = time.strftime("%I:%M %p")
