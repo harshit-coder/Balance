@@ -51,9 +51,9 @@ def home():
         return {"message": "success", "date": date.today().strftime("%d/%m/%Y")}
 
     else:
-        selling_price = 0
-        cost_price = 0
-        ghar_kharch = 0
+        selling_price = ""
+        cost_price = ""
+        ghar_kharch = ""
         today_date = date.today().strftime("%d/%m/%Y")
         cur.close()
         conn.close()
