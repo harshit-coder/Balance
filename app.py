@@ -82,16 +82,17 @@ def tables():
         l2 = cur.fetchall()
         if len(l2) > 0:
             for i in l2:
-                l1.append({'time': i[6],
-                           'id': i[7],
-                           'selling_price': i[0],
-                           'cost_price': i[1],
-                           'ghar_kharch': i[2],
-                           'profit': i[3]})
-                sp = sp + i[0]
-                cp = cp + i[1]
-                gk = gk + i[2]
-                pf = pf + i[3]
+                l1.append({'time': i[2],
+                           'date': i[1],
+                           'id': i[0],
+                           'selling_price': i[3],
+                           'cost_price': i[4],
+                           'ghar_kharch': i[5],
+                           'profit': i[6]})
+                sp = sp + i[3]
+                cp = cp + i[4]
+                gk = gk + i[5]
+                pf = pf + i[6]
 
             balance = gk - pf
 
@@ -108,16 +109,17 @@ def tables():
         l2 = cur.fetchall()
         if len(l2) > 0:
             for i in l2:
-                l1.append({'time': i[6],
-                           'id': i[7],
-                           'selling_price': i[0],
-                           'cost_price': i[1],
-                           'ghar_kharch': i[2],
-                           'profit': i[3]})
-                sp = sp + i[0]
-                cp = cp + i[1]
-                gk = gk + i[2]
-                pf = pf + i[3]
+                l1.append({'time': i[2],
+                           'date': i[1],
+                           'id': i[0],
+                           'selling_price': i[3],
+                           'cost_price': i[4],
+                           'ghar_kharch': i[5],
+                           'profit': i[6]})
+                sp = sp + i[3]
+                cp = cp + i[4]
+                gk = gk + i[5]
+                pf = pf + i[6]
             balance = gk - pf
         conn.commit()
         cur.close()
@@ -282,17 +284,17 @@ def history():
     l2 = cur.fetchall()
     if len(l2) > 0:
         for i in l2:
-            l1.append({'time': i[6],
-                       'date': i[5],
-                       'id': i[7],
-                       'selling_price': i[0],
-                       'cost_price': i[1],
-                       'ghar_kharch': i[2],
-                       'profit': i[3]})
-            sp = sp + i[0]
-            cp = cp + i[1]
-            gk = gk + i[2]
-            pf = pf + i[3]
+            l1.append({'time': i[2],
+                       'date': i[1],
+                       'id': i[0],
+                       'selling_price': i[3],
+                       'cost_price': i[4],
+                       'ghar_kharch': i[5],
+                       'profit': i[6]})
+            sp = sp + i[3]
+            cp = cp + i[4]
+            gk = gk + i[5]
+            pf = pf + i[6]
         balance = gk - pf
     conn.commit()
     cur.close()
