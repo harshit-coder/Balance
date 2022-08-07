@@ -227,12 +227,13 @@ def delete_table():
         sql = 'DELETE FROM balance_price WHERE id =%s'
         cur.execute(sql, (id,))
         conn.commit()
+        cur.close()
+        conn.close()
         all_data = {
             "c_date": c_date}
         res = requests.post(url="http://127.0.0.1:5000/table", json=all_data)
         data = json.loads(res.text)
-        cur.close()
-        conn.close()
+
         return {"l1": data["l1"], "balance": data["balance"], "date_2": all_data["c_date"]}
 
 
