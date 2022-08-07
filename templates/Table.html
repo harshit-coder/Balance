@@ -133,8 +133,8 @@
                       <td   style="height: 78px; font-size: larger;">{{ num.cost_price }}</td>
                       <td  style="height: 78px; font-size: larger;">{{ num.ghar_kharch }}</td>
                       <td style="height: 78px; font-size: larger;">{{ num.profit }}</td>
-                         <td><div><button onclick="edit({{ num.id }},{{ num.selling_price }},{{ num.cost_price }},{{ num.ghar_kharch }},{{ num.profit }},'{{date_2}}')" type="button" data-toggle="modal" data-target="#modal-xl" class="btn btn-block btn-primary btn-xs"><i class="fa-solid fa-pen"></i></button></div>
-                        <div><button onclick="del({{ num.id }},'{{date_2}}')" type="button" data-toggle="modal" data-target="#modal-sm" class="btn btn-block btn-primary btn-xs"><i class="fa-solid fa-trash"></i></button></div></td>
+                         <td><button onclick="edit({{ num.id }},{{ num.selling_price }},{{ num.cost_price }},{{ num.ghar_kharch }},{{ num.profit }},'{{date_2}}')" type="button" data-toggle="modal" data-target="#modal-xl" class="btn btn-block btn-primary btn-xs"><i class="fa-solid fa-pen"></i></button>
+                        <button onclick="del({{ num.id }},'{{date_2}}')" type="button" data-toggle="modal" data-target="#modal-sm" class="btn btn-block btn-primary btn-xs"><i class="fa-solid fa-trash"></i></button></td>
                     </tr>
                   {% endfor %}
                     </tbody>
