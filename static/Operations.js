@@ -85,8 +85,8 @@ async function tables () {
                 document.getElementById("head").innerHTML=`<tr style="background-color: black;">
                         <th>SP</th>
                         <th>CP</th>
-                        <th>GK</th>
                         <th>PR</th>
+                        <th>GK</th>
                         <th>Edit/Delete</th>
                     </tr>`
                 let d =[]
@@ -125,6 +125,7 @@ async function result() {
     const s_date = document.getElementById("s_date").value
     const e_date = document.getElementById("e_date").value
     const td = new Date
+    td.setDate(td.getDate() + 1)
     start_date = new Date(s_date.split("/")[2],s_date.split("/")[1]-1,s_date.split("/")[0])
     end_date= new Date(e_date.split("/")[2],e_date.split("/")[1]-1,e_date.split("/")[0])
     console.log(start_date,end_date)
@@ -270,8 +271,9 @@ async function rem(id,c_date){
                 document.getElementById("head").innerHTML=`<tr style="background-color: black;">
                         <th>SP</th>
                         <th>CP</th>
-                        <th>GK</th>
                         <th>PR</th>
+                        <th>GK</th>
+
                         <th>Edit/Delete</th>
                     </tr>`
                 let d =[]
@@ -331,8 +333,9 @@ async function update(id,c_date){
                 document.getElementById("head").innerHTML=`<tr style="background-color: black;">
                         <th>SP</th>
                         <th>CP</th>
+                            <th>PR</th>
                         <th>GK</th>
-                        <th>PR</th>
+
                         <th>Edit/Delete</th>
                     </tr>`
                 let d =[]
