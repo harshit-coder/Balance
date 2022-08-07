@@ -152,7 +152,7 @@ def results():
         sum_cp = cur.fetchone()
         cur.execute(sql_gk)
         sum_gk = cur.fetchone()
-        if sum_sp and sum_cp and sum_gk:
+        if len(sum_sp) > 0 and len(sum_cp) > 0 and len(sum_gk) > 0:
             profit = int(sum_sp[0]) - int(sum_cp[0])
             balance = sum_gk[0] - profit
             sp=sum_sp[0]
@@ -197,7 +197,7 @@ def results():
         sum_cp = cur.fetchone()
         cur.execute(sql_gk)
         sum_gk = cur.fetchone()
-        if sum_sp and sum_cp and sum_gk:
+        if len(sum_sp)>0 and len(sum_cp)>0 and len(sum_gk)>0:
             profit = int(sum_sp[0]) - int(sum_cp[0])
             balance = sum_gk[0] - profit
             sp=sum_sp[0]
