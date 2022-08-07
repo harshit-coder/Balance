@@ -152,12 +152,22 @@ def results():
         sum_cp = cur.fetchone()
         cur.execute(sql_gk)
         sum_gk = cur.fetchone()
-        profit = sum_sp[0] - sum_cp[0]
-        balance = sum_gk[0] - profit
+        if sum_sp and sum_cp and sum_gk:
+            profit = int(sum_sp[0]) - int(sum_cp[0])
+            balance = sum_gk[0] - profit
+            sp=sum_sp[0]
+            cp = sum_cp[0]
+            gk = sum_gk[0]
+        else:
+            profit=0
+            balance=0
+            sp = 0
+            cp=0
+            gk=0
         daterange = start_date + "-" + end_date
         cur.close()
         conn.close()
-        return {'sum_sp': sum_sp[0], 'sum_cp': sum_cp[0], 'sum_gk': sum_gk[0], 'profit': profit, 'balance': balance,
+        return {'sum_sp': sp, 'sum_cp': cp, 'sum_gk': gk, 'profit': profit, 'balance': balance,
                 'month': daterange}
 
 
@@ -187,12 +197,21 @@ def results():
         sum_cp = cur.fetchone()
         cur.execute(sql_gk)
         sum_gk = cur.fetchone()
-
-        profit = int(sum_sp[0]) - int(sum_cp[0])
-        balance = sum_gk[0] - profit
+        if sum_sp and sum_cp and sum_gk:
+            profit = int(sum_sp[0]) - int(sum_cp[0])
+            balance = sum_gk[0] - profit
+            sp=sum_sp[0]
+            cp = sum_cp[0]
+            gk = sum_gk[0]
+        else:
+            profit=0
+            balance=0
+            sp = 0
+            cp=0
+            gk=0
         cur.close()
         conn.close()
-        return render_template("Result.html", sum_sp=sum_sp[0], sum_cp=sum_cp[0], sum_gk=sum_gk[0], profit=profit,
+        return render_template("Result.html", sum_sp=sp, sum_cp=cp, sum_gk=gk, profit=profit,
                                balance=balance, month=prev_mon)
 
 
