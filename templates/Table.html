@@ -10,7 +10,7 @@
         <div class="modal-dialog modal-sm">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Small Modal</h4>
+              <h4 class="modal-title">Delete</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span id="delete_no" aria-hidden="true">&times;</span>
               </button>
@@ -35,6 +35,44 @@
 
 
       <!--Big modal for update -->
+ <div class="modal fade" id="modal-xl1">
+        <div class="modal-dialog modal-xl1">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Add</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span id="add_no" aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                    <form  method="post">
+
+          <div class="input-group mb-3">
+            <input type="number" id="add-sp" class="form-control" placeholder="Selling price" value="">
+          </div>
+          <div class="input-group mb-3">
+            <input type="number" id="add-cp" class="form-control" placeholder="Cost Price" value="">
+          </div>
+          <div class="input-group mb-3">
+            <input type="number" id="add-gk" class="form-control" placeholder="Ghar Kharch" value="">
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <button onclick="PriceEntry()" type="submit"  class="btn btn-primary btn-block">Submit</button>
+            </div>
+            <!-- /.col -->
+          </div>
+        </form>
+
+        <p id="entry_result"></p>
+
+            </div>
+
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
 
       <!-- /.modal -->
 
@@ -42,7 +80,7 @@
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Extra Large Modal</h4>
+              <h4 class="modal-title">Update</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span id="update_no" aria-hidden="true">&times;</span>
               </button>
@@ -110,6 +148,8 @@
               </div>
             </div>
           </div>
+      <button data-toggle="modal" data-target="#modal-xl1"   class="btn btn-primary btn-block">Add</button>
+
           <div class="col-md-6">
             <div id="daily_table_today" class="card-body">
 
