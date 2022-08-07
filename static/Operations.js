@@ -392,6 +392,7 @@ async function PriceEntry1() {
 
                 const data  = response.data
         console.log(`Added a new Todo!`,data);
+        const c_date=data['date_2']
          document.getElementById("balance").innerHTML =`<h4 >Balance:${data["balance"]}</h4>`
                 document.getElementById("head").innerHTML=`<tr style="background-color: black;">
                         <th>SP</th>
