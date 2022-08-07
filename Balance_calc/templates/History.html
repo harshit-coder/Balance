@@ -1,0 +1,53 @@
+{% extends "Base.html" %}
+{% block body %}
+  <!-- Content Wrapper. Contains page content -->
+
+  <div class="content-wrapper">
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6">
+            <div id="daily_table_today" class="card-body">
+                  <div>
+                    <h4 id="balance">Balance: {{balance}}</h4>
+                <table id="table_1" class="table table-bordered">
+                    <thead id = "head">
+                    <tr  style="background-color: black;">
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>SP</th>
+                        <th>CP</th>
+                        <th>GK</th>
+                        <th>PR</th>
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                 {% for num  in table %}
+                    <tr>
+                        <td  style="height: 78px; font-size: larger;">{{ num.date }}</td>
+                        <td  style="height: 78px; font-size: larger;">{{ num.time }}</td>
+                      <td  style="height: 78px; font-size: larger;">{{ num.selling_price }}</td>
+                      <td   style="height: 78px; font-size: larger;">{{ num.cost_price }}</td>
+                      <td  style="height: 78px; font-size: larger;">{{ num.ghar_kharch }}</td>
+                      <td style="height: 78px; font-size: larger;">{{ num.profit }}</td>
+
+                    </tr>
+                  {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  {% endblock %}
+

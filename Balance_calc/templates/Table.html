@@ -1,0 +1,154 @@
+{% extends "Base.html" %}
+{% block body %}
+  <!-- Content Wrapper. Contains page content -->
+
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+
+      <!-- small modal for delete  -->
+       <div class="modal fade" id="modal-sm">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Small Modal</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span id="delete_no" aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Do you want to delete this row ?</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <div id="delete">
+          <button id="button_delete" type="submit" class="btn btn-default">Yes</button>
+      </div>
+              <div id="del_result">
+      </div>
+
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+
+
+      <!--Big modal for update -->
+
+      <!-- /.modal -->
+
+      <div class="modal fade" id="modal-xl">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Extra Large Modal</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span id="update_no" aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+               <form  method="post">
+          <div class="input-group mb-3">
+            <input type="number" id="sp" class="form-control" placeholder="Selling price" value="0">
+          </div>
+          <div class="input-group mb-3">
+            <input type="number" id="cp" class="form-control" placeholder="Cost Price" value="0">
+          </div>
+          <div class="input-group mb-3">
+            <input type="number" id="gk" class="form-control" placeholder="Ghar Kharch" value="0">
+          </div>
+          <div class="row">
+            <div class="col-4">
+  <div class="modal-footer justify-content-between">
+<!--              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+      <div id="update">
+          <button id="button_update" type="submit" class="btn btn-default">Submit</button>
+      </div>
+      <div id="upd_result">
+      </div>
+
+
+            </div>
+            </div>
+            <!-- /.col -->
+          </div>
+        </form>
+
+            </div>
+
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card card-primary">
+             
+              <div class="card-body">
+                <!-- Date -->
+                <form  method="post">
+                  <div class="row">
+                      <div class="col-8">
+                          <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                              <input type="text" id="c_date" readonly class="form-control datetimepicker-input" data-target="#reservationdate" value="{{date_2}}">
+                              <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                              </div>
+                          </div>
+                      </div>
+                    <div class="col-4">
+                      <button type="submit" onclick="tables()" class="btn btn-primary btn-block">Submit</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div id="daily_table_today" class="card-body">
+
+                  <div>
+                    <h4 id="balance">Balance: {{ balance }}</h4>
+
+                <table id="table_1" class="table table-bordered">
+                    <thead id = "head">
+                    <tr  style="background-color: black;">
+                        <th>SP</th>
+                        <th>CP</th>
+                        <th>GK</th>
+                        <th>PR</th>
+                         <th>Edit/Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody id="table">
+                 {% for num  in table %}
+                    <tr>
+                      <td  style="height: 78px; font-size: larger;">{{ num.selling_price }}</td>
+                      <td   style="height: 78px; font-size: larger;">{{ num.cost_price }}</td>
+                      <td  style="height: 78px; font-size: larger;">{{ num.ghar_kharch }}</td>
+                      <td style="height: 78px; font-size: larger;">{{ num.profit }}</td>
+                         <td><div><button onclick="edit({{ num.id }},{{ num.selling_price }},{{ num.cost_price }},{{ num.ghar_kharch }},{{ num.profit }},'{{date_2}}')" type="button" data-toggle="modal" data-target="#modal-xl" class="btn btn-block btn-primary btn-xs"><i class="fa-solid fa-pen"></i></button></div>
+                        <div><button onclick="del({{ num.id }},'{{date_2}}')" type="button" data-toggle="modal" data-target="#modal-sm" class="btn btn-block btn-primary btn-xs"><i class="fa-solid fa-trash"></i></button></div></td>
+                    </tr>
+                  {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  {% endblock %}
+
