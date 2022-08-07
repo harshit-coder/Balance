@@ -363,3 +363,67 @@ async function update(id,c_date){
     }
 
 }
+
+async function PriceEntry1() {
+    event.preventDefault();
+    const sp = document.getElementById("add-sp").value
+    const cp = document.getElementById("add-cp").value
+    const gk = document.getElementById("add-gk").value
+    console.log(typeof sp,sp)
+    console.log(typeof cp,cp)
+    console.log(typeof gk,gk)
+       if((sp==="") & (cp==="") & (gk==="")){
+        console.log("all are empty")
+        alert("Please enter something")
+        document.getElementById("add-sp").value = ""
+        document.getElementById("add-cp").value=""
+        document.getElementById("add-gk").value=""
+    }
+
+    else{
+    const prices = {
+    sp: sp,
+    cp: cp,
+    gk: gk,
+    };
+    console.log(prices)
+    try {
+        const response = await axios.post('https://dailybalanceapp.herokuapp.com/entry2', prices);
+
+                const data  = response.data
+        console.log(`Added a new Todo!`,data);
+         document.getElementById("balance").innerHTML =`<h4 >Balance:${data["balance"]}</h4>`
+                document.getElementById("head").innerHTML=`<tr style="background-color: black;">
+                        <th>SP</th>
+                        <th>CP</th>
+                            <th>PR</th>
+                        <th>GK</th>
+
+                        <th>Edit/Delete</th>
+                    </tr>`
+                let d =[]
+                 for (let num = 0; num < data["l1"].length; num++)
+                 {
+                    d+=`<tr>
+                      <td style="height: 78px; font-size: larger;">${ data['l1'][num]['selling_price'] }</td>
+                      <td style="height: 78px; font-size: larger;">${ data['l1'][num]['cost_price'] }</td>
+                      <td style="height: 78px; font-size: larger;">${ data['l1'][num]['profit'] }</td>
+                      <td style="height: 78px; font-size: larger;">${ data['l1'][num]['ghar_kharch'] }</td>
+
+                                <td><button type="button" onclick="edit(${ data['l1'][num]['id']},${ data['l1'][num]['selling_price'] },${ data['l1'][num]['cost_price'] },${ data['l1'][num]['ghar_kharch'] },${ data['l1'][num]['profit'] },'${c_date}')"  data-toggle="modal" data-target="#modal-xl" ><i class="fa-solid fa-pen"></i></button>
+                        <button onclick="delete(${ data['l1'][num]['id']},'${c_date}')" type="button" data-toggle="modal" data-target="#modal-sm"><i class="fa-solid fa-trash"></i></button></td>
+                    </tr>`
+                }
+                document.getElementById("table").innerHTML=d
+
+        document.getElementById("add-sp").value = ""
+        document.getElementById("add-cp").value=""
+        document.getElementById("add-gk").value=""
+        document.getElementById("add_no").click()
+    } catch (errors) {
+        console.log(errors);
+        message = errors["message"]
+        document.getElementById('entry_result').value = message
+    }
+    }
+}

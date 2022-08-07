@@ -303,6 +303,34 @@ def history():
     return render_template("History.html", table=l1, balance=balance)
 
 
+@app.route("/entry2", methods=['GET', 'POST'])
+def entry2():
+    conn,cur = create_comection()
+    print(request.data)
+    if request.json:
+        data = request.json
+        profit = 0
+        selling_price = int(data.get("sp")) if data.get("sp") else 0
+        cost_price = int(data.get("cp")) if data.get("cp") else 0
+        ghar_kharch = int(data.get("gk")) if data.get("gk") else 0
+        ed = today_date = date.today().strftime("%d/%m/%Y")
+        profit = selling_price - cost_price
+        date_of_inserting = date.today().strftime("%d/%m/%Y")
+        time_of_inserting = time.strftime("%I:%M %p")
+        sql = 'INSERT INTO balance_price (selling_price, cost_price, ghar_kharch, profit,date,time)VALUES (%s, %s, %s, %s,%s, %s)'
+        cur.execute(sql, (selling_price, cost_price, ghar_kharch, profit, ed, time_of_inserting))
+        conn.commit()
+        cur.close()
+        conn.close()
+        all_data = {
+            "c_date": ed}
+        res = requests.post(url="https://dailybalanceapp.herokuapp.com/table", json=all_data)
+        data = json.loads(res.text)
+
+        return {"l1": data["l1"], "balance": data["balance"], "date_2": all_data["c_date"]}
+
+
+
 # driver function
 if __name__ == '__main__':
     app.run(debug=True)
