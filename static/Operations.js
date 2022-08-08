@@ -106,7 +106,7 @@ async function tables () {
                       <td style="height: 78px; font-size: larger;">T = ${ data['sp'] }</td>
                       <td style="height: 78px; font-size: larger;">T = ${ data['cp'] }</td>
                       <td style="height: 78px; font-size: larger;">T = ${ data['pf'] }</td>
-                      <td style="height: 78px; font-size: larger;">T = ${ data['pf'] }</td>
+                      <td style="height: 78px; font-size: larger;">T = ${ data['gk'] }</td>
                                 <td></td>
                     </tr>`
                 document.getElementById("table").innerHTML=d
@@ -300,7 +300,7 @@ async function rem(id,c_date){
                       <td style="height: 78px; font-size: larger;">T = ${ data['sp'] }</td>
                       <td style="height: 78px; font-size: larger;">T = ${ data['cp'] }</td>
                       <td style="height: 78px; font-size: larger;">T = ${ data['pf'] }</td>
-                      <td style="height: 78px; font-size: larger;">T = ${ data['pf'] }</td>
+                      <td style="height: 78px; font-size: larger;">T = ${ data['gk'] }</td>
                                 <td></td>
                     </tr>`
                 document.getElementById("table").innerHTML=d
@@ -369,7 +369,7 @@ async function update(id,c_date){
                       <td style="height: 78px; font-size: larger;">T = ${ data['sp'] }</td>
                       <td style="height: 78px; font-size: larger;">T = ${ data['cp'] }</td>
                       <td style="height: 78px; font-size: larger;">T = ${ data['pf'] }</td>
-                      <td style="height: 78px; font-size: larger;">T = ${ data['pf'] }</td>
+                      <td style="height: 78px; font-size: larger;">T = ${ data['gk'] }</td>
                                 <td></td>
                     </tr>`
                 document.getElementById("table").innerHTML=d
@@ -440,7 +440,7 @@ async function PriceEntry1() {
                       <td style="height: 78px; font-size: larger;">T = ${ data['sp'] }</td>
                       <td style="height: 78px; font-size: larger;">T = ${ data['cp'] }</td>
                       <td style="height: 78px; font-size: larger;">T = ${ data['pf'] }</td>
-                      <td style="height: 78px; font-size: larger;">T = ${ data['pf'] }</td>
+                      <td style="height: 78px; font-size: larger;">T = ${ data['gk'] }</td>
                                 <td></td>
                     </tr>`
                 document.getElementById("table").innerHTML=d
