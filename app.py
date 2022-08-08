@@ -303,7 +303,7 @@ def history():
     conn.commit()
     cur.close()
     conn.close()
-    return render_template("History.html", table=l1, balance=balance)
+    return render_template("History.html", table=l1, balance=balance,sp=sp,cp=cp,gk=gk,pf=pf)
 
 
 @app.route("/entry2", methods=['GET', 'POST'])
