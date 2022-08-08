@@ -235,7 +235,8 @@ def delete_table():
         res = requests.post(url="https://dailybalanceapp.herokuapp.com/table", json=all_data)
         data = json.loads(res.text)
 
-        return {"l1": data["l1"], "balance": data["balance"], "date_2": all_data["c_date"]}
+        return {"l1": data["l1"], "balance": data["balance"], "date_2": all_data["c_date"],
+                "sp":data["sp"],"cp":data["cp"],"gk":data["gk"],"pf":data["pf"]}
 
 
 @app.route("/edit", methods=['GET', 'POST'])
@@ -257,7 +258,8 @@ def edit_table():
     data = json.loads(res.text)
     cur.close()
     conn.close()
-    return {"l1": data["l1"], "balance": data["balance"], "date_2": all_data["c_date"]}
+    return {"l1": data["l1"], "balance": data["balance"], "date_2": all_data["c_date"],
+                "sp":data["sp"],"cp":data["cp"],"gk":data["gk"],"pf":data["pf"]}
 
 
 def dates_range(res, start_date, end_date):
@@ -328,7 +330,10 @@ def entry2():
         res = requests.post(url="https://dailybalanceapp.herokuapp.com/table", json=all_data)
         data = json.loads(res.text)
 
-        return {"l1": data["l1"], "balance": data["balance"], "date_2": all_data["c_date"]}
+
+
+        return {"l1": data["l1"], "balance": data["balance"], "date_2": all_data["c_date"],
+                "sp":data["sp"],"cp":data["cp"],"gk":data["gk"],"pf":data["pf"]}
 
 
 
