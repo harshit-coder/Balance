@@ -99,7 +99,7 @@ def tables():
         conn.commit()
         cur.close()
         conn.close()
-        return {"l1": l1, "balance": balance, "date_2": date_2}
+        return {"l1": l1, "balance": balance, "date_2": date_2,"sp":sp,"cp":cp,"gk":gk,"pf":pf}
         # return render_template("Table.html", table=l1, balance=balance, date=date_1)
     else:
         date = datetime.date.today()
@@ -124,7 +124,8 @@ def tables():
         conn.commit()
         cur.close()
         conn.close()
-        return render_template("Table.html", table=l1, balance=balance, date_2=today_date)
+        return render_template("Table.html", table=l1, balance=balance, date_2=today_date,sp=sp,cp=cp,gk=gk,pf=pf)
+
 
 
 @app.route("/result", methods=['GET', 'POST'])

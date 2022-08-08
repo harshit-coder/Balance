@@ -102,6 +102,13 @@ async function tables () {
                         <button type="button"  onclick="del(${ data['l1'][num]['id']},'${data['date_2']}')" data-toggle="modal" data-target="#modal-sm"><i class="fa-solid fa-trash"></i></button></td>
                     </tr>`
                 }
+                   d+=`<tr>
+                      <td style="height: 78px; font-size: larger;">T = ${ data['sp'] }</td>
+                      <td style="height: 78px; font-size: larger;">T = ${ data['cp'] }</td>
+                      <td style="height: 78px; font-size: larger;">T = ${ data['pf'] }</td>
+                      <td style="height: 78px; font-size: larger;">T = ${ data['pf'] }</td>
+                                <td></td>
+                    </tr>`
                 document.getElementById("table").innerHTML=d
                    console.log(data['date_2'])
                 }
@@ -289,6 +296,13 @@ async function rem(id,c_date){
                         <button onclick="del(${ data['l1'][num]['id']},'${c_date}')" type="button" data-toggle="modal" data-target="#modal-sm"><i class="fa-solid fa-trash"></i></button></td>
                     </tr>`
                 }
+                   d+=`<tr>
+                      <td style="height: 78px; font-size: larger;">T = ${ data['sp'] }</td>
+                      <td style="height: 78px; font-size: larger;">T = ${ data['cp'] }</td>
+                      <td style="height: 78px; font-size: larger;">T = ${ data['pf'] }</td>
+                      <td style="height: 78px; font-size: larger;">T = ${ data['pf'] }</td>
+                                <td></td>
+                    </tr>`
                 document.getElementById("table").innerHTML=d
                 document.getElementById("delete_no").click()
 
@@ -351,6 +365,13 @@ async function update(id,c_date){
                         <button onclick="delete(${ data['l1'][num]['id']},'${c_date}')" type="button" data-toggle="modal" data-target="#modal-sm"><i class="fa-solid fa-trash"></i></button></td>
                     </tr>`
                 }
+                   d+=`<tr>
+                      <td style="height: 78px; font-size: larger;">T = ${ data['sp'] }</td>
+                      <td style="height: 78px; font-size: larger;">T = ${ data['cp'] }</td>
+                      <td style="height: 78px; font-size: larger;">T = ${ data['pf'] }</td>
+                      <td style="height: 78px; font-size: larger;">T = ${ data['pf'] }</td>
+                                <td></td>
+                    </tr>`
                 document.getElementById("table").innerHTML=d
                 document.getElementById("update_no").click()
 
@@ -415,6 +436,13 @@ async function PriceEntry1() {
                         <button onclick="delete(${ data['l1'][num]['id']},'${c_date}')" type="button" data-toggle="modal" data-target="#modal-sm"><i class="fa-solid fa-trash"></i></button></td>
                     </tr>`
                 }
+                   d+=`<tr>
+                      <td style="height: 78px; font-size: larger;">T = ${ data['sp'] }</td>
+                      <td style="height: 78px; font-size: larger;">T = ${ data['cp'] }</td>
+                      <td style="height: 78px; font-size: larger;">T = ${ data['pf'] }</td>
+                      <td style="height: 78px; font-size: larger;">T = ${ data['pf'] }</td>
+                                <td></td>
+                    </tr>`
                 document.getElementById("table").innerHTML=d
 
         document.getElementById("add-sp").value = ""
