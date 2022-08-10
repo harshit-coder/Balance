@@ -18,10 +18,10 @@ app = Flask(__name__, template_folder='templates', static_folder='static')
 
 def create_comection():
     conn = psycopg2.connect(
-        host="ec2-44-208-88-195.compute-1.amazonaws.com",
-        database="d7h8ea9nje87du",
-        user="kiewksyxofbvrr",
-        password="3a2ae2dda46fbf735c5846485e5387ce62e9cf10a99ce3ead179d50807386819")
+        host="ec2-107-23-76-12.compute-1.amazonaws.com",
+        database="d2jggb4us3to6t",
+        user="fybqdjculoozhu",
+        password="db990a3ff6d8360d9a721c8b45d3bfbd195257f8a04ca3991f1cd673752ce659")
     cur = conn.cursor()
 
     return conn,cur
