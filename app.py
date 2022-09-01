@@ -142,7 +142,7 @@ def results():
         s_m = start_date_1.strftime("%B")
         e_m = end_date_1.strftime("%B")
 
-        res = start_date_1 + datetime.timedelta(days=end_date_1.day)
+        res = end_date_1 - start_date_1
         d_r = dates_range2(res, start_date_1, end_date_1)
         tuple_dr = tuple(d_r)
         sql_sp = 'SELECT SUM(selling_price) FROM balance_price where date IN {}'.format(tuple_dr)
