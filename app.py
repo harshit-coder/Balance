@@ -187,6 +187,7 @@ def results():
         start_date = test_date
         end_date = res
         prev_mon = start_date.strftime("%B")
+        res=res.day+1
         d_r = dates_range(res, start_date, end_date)
         tuple_dr = tuple(d_r)
         print(tuple_dr)
