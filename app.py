@@ -187,8 +187,7 @@ def results():
         start_date = test_date
         end_date = res
         prev_mon = start_date.strftime("%B")
-        res = end_date + datetime.timedelta(days=1)
-        d_r = dates_range(res, start_date, end_date)
+        d_r = dates_range2(res, start_date, end_date)
         tuple_dr = tuple(d_r)
         print(tuple_dr)
         sql_sp = 'SELECT SUM(selling_price) FROM balance_price where date IN {}'.format(tuple_dr)
@@ -266,6 +265,13 @@ def edit_table():
 def dates_range(res, start_date, end_date):
     l1 = []
     for i in range(0, res.day-1):
+        l1.append(start_date.strftime("%d/%m/%Y"))
+        start_date = start_date + datetime.timedelta(days=1)
+    return l1
+
+def dates_range2(res, start_date, end_date):
+    l1 = []
+    for i in range(0, res.day):
         l1.append(start_date.strftime("%d/%m/%Y"))
         start_date = start_date + datetime.timedelta(days=1)
     return l1
