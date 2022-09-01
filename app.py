@@ -143,7 +143,7 @@ def results():
         e_m = end_date_1.strftime("%B")
 
         res = end_date_1 - start_date_1
-        d_r = dates_range2(res, start_date_1, end_date_1)
+        d_r = dates_range2(res.days, start_date_1, end_date_1)
         tuple_dr = tuple(d_r)
         sql_sp = 'SELECT SUM(selling_price) FROM balance_price where date IN {}'.format(tuple_dr)
         sql_cp = 'SELECT SUM(cost_price) FROM balance_price where date IN  {}'.format(tuple_dr)
@@ -186,8 +186,9 @@ def results():
         res = nxt_mnth - datetime.timedelta(days=nxt_mnth.day)
         start_date = test_date
         end_date = res
+        res = end_date-start_date
         prev_mon = start_date.strftime("%B")
-        d_r = dates_range2(res, start_date, end_date)
+        d_r = dates_range2(res.days, start_date, end_date)
         tuple_dr = tuple(d_r)
         print(tuple_dr)
         sql_sp = 'SELECT SUM(selling_price) FROM balance_price where date IN {}'.format(tuple_dr)
