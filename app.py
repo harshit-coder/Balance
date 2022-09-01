@@ -271,7 +271,7 @@ def dates_range(res, start_date, end_date):
 
 def dates_range2(res, start_date, end_date):
     l1 = []
-    for i in range(0, res.day):
+    for i in range(0, res.days):
         l1.append(start_date.strftime("%d/%m/%Y"))
         start_date = start_date + datetime.timedelta(days=1)
     return l1
