@@ -183,7 +183,7 @@ def results():
             test_date = datetime.datetime(test_date.year - 1, previous_month, 1)
 
         nxt_mnth = test_date.replace(day=28) + datetime.timedelta(days=4)
-        res = nxt_mnth - datetime.timedelta(days=nxt_mnth)
+        res = nxt_mnth - datetime.timedelta(days=nxt_mnth.day)
         start_date = test_date
         end_date = res + datetime.timedelta(days=1)
         res = end_date-start_date
