@@ -19,6 +19,7 @@ from mysql.connector import Error
 app = Flask(__name__, template_folder='templates', static_folder='static')
 
 
+
 def create_comection():
     try:
         conn = mysql.connector.connect(
