@@ -21,9 +21,9 @@ app = Flask(__name__, template_folder='templates', static_folder='static')
 def create_comection():
     try:
         conn = mysql.connector.connect(
-            host="localhost",
-            database="BalanceApp",
-            user="root",
+            host="balanceapp.mysql.pythonanywhere-services.com",
+            database="balanceapp$BalanceApp",
+            user="balanceapp",
             password="Harshit@22")
         cur = conn.cursor()
 
