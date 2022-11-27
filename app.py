@@ -10,8 +10,6 @@ from flask import Flask, jsonify, request, render_template, url_for
 import git
 import json
 
-
-
 # creating a Flask app
 import mysql.connector
 from mysql.connector import Error
