@@ -1,4 +1,4 @@
-const host = 'http://127.0.0.1:5000/'
+const host = 'https://balanceapp.pythonanywhere.com/'
 async function PriceEntry () {
     event.preventDefault();
     const sp = document.getElementById("sp").value
