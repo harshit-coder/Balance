@@ -15,7 +15,7 @@ import mysql.connector
 from mysql.connector import Error
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
-
+HOST = 'https://balanceapp.pythonanywhere.com/'
 
 
 def create_comection():
@@ -250,7 +250,7 @@ def delete_table():
         conn.close()
         all_data = {
             "c_date": c_date}
-        res = requests.post(url="https://dailybalanceapp.herokuapp.com/table", json=all_data)
+        res = requests.post(url=HOST + "table", json=all_data)
         data = json.loads(res.text)
 
         return {"l1": data["l1"], "balance": data["balance"], "date_2": all_data["c_date"],
@@ -272,7 +272,7 @@ def edit_table():
     conn.commit()
     all_data = {
         "c_date": c_date}
-    res = requests.post(url="https://dailybalanceapp.herokuapp.com/table", json=all_data)
+    res = requests.post(url=HOST + "table", json=all_data)
     data = json.loads(res.text)
     cur.close()
     conn.close()
@@ -352,7 +352,7 @@ def entry2():
         conn.close()
         all_data = {
             "c_date": ed}
-        res = requests.post(url="https://dailybalanceapp.herokuapp.com/table", json=all_data)
+        res = requests.post(url=HOST + "table", json=all_data)
         data = json.loads(res.text)
 
 
