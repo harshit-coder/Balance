@@ -42,7 +42,6 @@ def webhook():
     else:
         return 'Wrong event type', 400
 
-create_comection()
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
