@@ -7,27 +7,42 @@ import time
 from datetime import date
 
 from flask import Flask, jsonify, request, render_template, url_for
-
+import git
 import json
 
 
 
 # creating a Flask app
-import psycopg2
+import mysql.connector
+from mysql.connector import Error
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
 
 
 def create_comection():
-    conn = psycopg2.connect(
-        host="ec2-107-23-76-12.compute-1.amazonaws.com",
-        database="d2jggb4us3to6t",
-        user="fybqdjculoozhu",
-        password="db990a3ff6d8360d9a721c8b45d3bfbd195257f8a04ca3991f1cd673752ce659")
-    cur = conn.cursor()
+    try:
+        conn = mysql.connector.connect(
+            host="localhost",
+            database="BalanceApp",
+            user="root",
+            password="Harshit@22")
+        cur = conn.cursor()
 
-    return conn,cur
+        return conn,cur
+    except Exception as e:
+        print("Error while connecting to MySQL", e)
+        
+@app.route('/git_update', methods=['POST'])
+def webhook():
+    if request.method == 'POST':
+        repo = git.Repo('path/to/git_repo')
+        origin = repo.remotes.origin
+        origin.pull()
+        return 'Updated PythonAnywhere successfully', 200
+    else:
+        return 'Wrong event type', 400
 
+create_comection()
 
 @app.route("/", methods=['GET', 'POST'])
 def home():

@@ -1,4 +1,4 @@
-
+const host = 'http://127.0.0.1:5000/'
 async function PriceEntry () {
     event.preventDefault();
     const sp = document.getElementById("sp").value
@@ -36,7 +36,7 @@ async function PriceEntry () {
     };
     console.log(prices)
     try {
-        const response = await axios.post('https://dailybalanceapp.herokuapp.com/', prices);
+        const response = await axios.post(host, prices);
         const data  = response.data
         console.log(`Added a new Todo!`,data['message']);
         document.getElementById('entry_result').innerHTML = data['message']
@@ -75,7 +75,7 @@ async function tables () {
     console.log(all_data)
 
     try {
-        const response = await axios.post('https://dailybalanceapp.herokuapp.com/table', all_data);
+        const response = await axios.post(host+'table', all_data);
         const data = response.data
         console.log('Added a new Todo!', data);
         console.log(data["date_2"])
@@ -160,7 +160,7 @@ async function result() {
     };
     console.log(r_data)
     try {
-        const response = await axios.post('https://dailybalanceapp.herokuapp.com/result', r_data);
+        const response = await axios.post(host + 'result', r_data);
         const data = response.data
         console.log(`Added a new Todo!`, data);
         document.getElementById("s_date").value=s_date
@@ -271,7 +271,7 @@ async function rem(id,c_date){
     };
     console.log(prices)
     try {
-        const response = await axios.post('https://dailybalanceapp.herokuapp.com/delete', prices);
+        const response = await axios.post(host + 'delete', prices);
         const data  = response.data
         console.log(`Added a new Todo!`,data);
          document.getElementById("balance").innerHTML =`<h4 >Balance:${data["balance"]}</h4>`
@@ -340,7 +340,7 @@ async function update(id,c_date){
     };
     console.log(prices)
     try {
-        const response = await axios.post('https://dailybalanceapp.herokuapp.com/edit', prices);
+        const response = await axios.post(host + 'edit', prices);
         const data  = response.data
         console.log(`Added a new Todo!`,data);
          document.getElementById("balance").innerHTML =`<h4 >Balance:${data["balance"]}</h4>`
@@ -409,7 +409,7 @@ async function PriceEntry1() {
     };
     console.log(prices)
     try {
-        const response = await axios.post('https://dailybalanceapp.herokuapp.com/entry2', prices);
+        const response = await axios.post(host + 'entry2', prices);
 
                 const data  = response.data
         console.log(`Added a new Todo!`,data);
