@@ -32,6 +32,7 @@ def create_comection():
     except Exception as e:
         print("Error while connecting to MySQL", e)
         
+        
 @app.route('/git_update', methods=['POST'])
 def webhook():
     if request.method == 'POST':
