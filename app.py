@@ -19,6 +19,44 @@ app = Flask(__name__, template_folder='templates', static_folder='static')
 HOST = 'https://balanceapp.pythonanywhere.com/'
 
 
+def fetch_data(data):
+    conn, cur = create_comection()
+    l1 = []
+    dt = {}
+    sp = 0
+    cp = 0
+    gk = 0
+    pf = 0
+    l1 = []
+    l2 = []
+    balance = 0
+    date_1 = data
+    date_2 = date_1.get("c_date")
+    sql = 'SELECT * FROM balance_price where date = \'{}\' ORDER BY id'.format(date_2)
+    cur.execute(sql)
+    l2 = cur.fetchall()
+    if len(l2) > 0:
+        for i in l2:
+            l1.append({'time': i[2],
+                        'date': i[1],
+                        'id': i[0],
+                        'selling_price': i[3],
+                        'cost_price': i[4],
+                        'ghar_kharch': i[5],
+                        'profit': i[6]})
+            sp = sp + i[3]
+            cp = cp + i[4]
+            gk = gk + i[5]
+            pf = pf + i[6]
+
+        balance = pf - gk
+
+    conn.commit()
+    cur.close()
+    conn.close()
+    return {"l1": l1, "balance": balance, "date_2": date_2,"sp":sp,"cp":cp,"gk":gk,"pf":pf}
+    # return render_template("Table.html", table=l1, balance=balance, date=date_1)
+
 def create_comection():
     try:
         conn = mysql.connector.connect(
@@ -91,32 +129,11 @@ def tables():
     l2 = []
     balance = 0
     if request.method == 'POST':
-        print(request.data)
-        date_1 = request.json
-        date_2 = date_1.get("c_date")
-        sql = 'SELECT * FROM balance_price where date = \'{}\' ORDER BY id'.format(date_2)
-        cur.execute(sql)
-        l2 = cur.fetchall()
-        if len(l2) > 0:
-            for i in l2:
-                l1.append({'time': i[2],
-                           'date': i[1],
-                           'id': i[0],
-                           'selling_price': i[3],
-                           'cost_price': i[4],
-                           'ghar_kharch': i[5],
-                           'profit': i[6]})
-                sp = sp + i[3]
-                cp = cp + i[4]
-                gk = gk + i[5]
-                pf = pf + i[6]
-
-            balance = pf - gk
-
-        conn.commit()
-        cur.close()
-        conn.close()
-        return {"l1": l1, "balance": balance, "date_2": date_2,"sp":sp,"cp":cp,"gk":gk,"pf":pf}
+        res = fetch_data(data=all_data)
+        data = json.loads(res.text)
+        return {"l1": data["l1"], "balance": data["balance"], "date_2": all_data["c_date"],
+                "sp":data["sp"],"cp":data["cp"],"gk":data["gk"],"pf":data["pf"]}
+        # return {"l1": l1, "balance": balance, "date_2": date_2,"sp":sp,"cp":cp,"gk":gk,"pf":pf}
         # return render_template("Table.html", table=l1, balance=balance, date=date_1)
     else:
         date = datetime.date.today()
@@ -250,7 +267,8 @@ def delete_table():
         conn.close()
         all_data = {
             "c_date": c_date}
-        res = requests.post(url=HOST + "table", json=all_data)
+        res = fetch_data(data=all_data)
+        # res = requests.post(url=HOST + "table", json=all_data)
         data = json.loads(res.text)
 
         return {"l1": data["l1"], "balance": data["balance"], "date_2": all_data["c_date"],
@@ -272,7 +290,8 @@ def edit_table():
     conn.commit()
     all_data = {
         "c_date": c_date}
-    res = requests.post(url=HOST + "table", json=all_data)
+    # res = requests.post(url=HOST + "table", json=all_data)
+    res = fetch_data(data=all_data)
     data = json.loads(res.text)
     cur.close()
     conn.close()
@@ -352,7 +371,8 @@ def entry2():
         conn.close()
         all_data = {
             "c_date": ed}
-        res = requests.post(url=HOST + "table", json=all_data)
+        # res = requests.post(url=HOST + "table", json=all_data)
+        res = fetch_data(data=all_data)
         data = json.loads(res.text)
 
 
