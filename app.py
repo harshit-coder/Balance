@@ -290,7 +290,7 @@ def delete_table():
             "c_date": c_date}
         res = fetch_data(data=all_data)
         # res = requests.post(url=HOST + "table", json=all_data)
-        data = json.loads(res.text)
+        data = res
 
         return {"l1": data["l1"], "balance": data["balance"], "date_2": all_data["c_date"],
                 "sp":data["sp"],"cp":data["cp"],"gk":data["gk"],"pf":data["pf"]}
@@ -313,7 +313,7 @@ def edit_table():
         "c_date": c_date}
     # res = requests.post(url=HOST + "table", json=all_data)
     res = fetch_data(data=all_data)
-    data = json.loads(res.text)
+    data = res
     cur.close()
     conn.close()
     return {"l1": data["l1"], "balance": data["balance"], "date_2": all_data["c_date"],
@@ -394,7 +394,7 @@ def entry2():
             "c_date": ed}
         # res = requests.post(url=HOST + "table", json=all_data)
         res = fetch_data(data=all_data)
-        data = json.loads(res.text)
+        data = res
 
 
 
