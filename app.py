@@ -301,9 +301,15 @@ def edit_table():
     conn, cur = create_comection()
     data = request.json
     id = data.get("id")
-    selling_price = int(data.get("sp"))
-    cost_price = int(data.get("cp"))
-    ghar_kharch = int(data.get("gk"))
+    selling_price=0
+    cost_price=0
+    ghar_kharch=0
+    if data.get("sp") is not None and len(data.get("sp").strip()) !=0:
+        selling_price = int(data.get("sp"))
+    if data.get("cp") is not None and len(data.get("cp").strip()) !=0:
+        cost_price = int(data.get("cp"))
+    if data.get("gk") is not None and len(data.get("gk").strip()) !=0:
+        ghar_kharch = int(data.get("gk"))
     c_date = data.get("c_date")
     profit = selling_price - cost_price
     sql = 'UPDATE balance_price set selling_price=%s, cost_price=%s, ghar_kharch=%s, profit = %s where id  = %s'
