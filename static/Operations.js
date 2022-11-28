@@ -362,7 +362,7 @@ async function update(id,c_date){
                       <td style="height: 78px; font-size: larger;">${ data['l1'][num]['ghar_kharch'] }</td>
 
                                 <td><button type="button" onclick="edit(${ data['l1'][num]['id']},${ data['l1'][num]['selling_price'] },${ data['l1'][num]['cost_price'] },${ data['l1'][num]['ghar_kharch'] },${ data['l1'][num]['profit'] },'${c_date}')"  data-toggle="modal" data-target="#modal-xl" ><i class="fa-solid fa-pen"></i></button>
-                        <button onclick="delete(${ data['l1'][num]['id']},'${c_date}')" type="button" data-toggle="modal" data-target="#modal-sm"><i class="fa-solid fa-trash"></i></button></td>
+                        <button onclick="del(${ data['l1'][num]['id']},'${c_date}')" type="button" data-toggle="modal" data-target="#modal-sm"><i class="fa-solid fa-trash"></i></button></td>
                     </tr>`
                 }
                    d+=`<tr>
@@ -433,7 +433,7 @@ async function PriceEntry1() {
                       <td style="height: 78px; font-size: larger;">${ data['l1'][num]['ghar_kharch'] }</td>
 
                                 <td><button type="button" onclick="edit(${ data['l1'][num]['id']},${ data['l1'][num]['selling_price'] },${ data['l1'][num]['cost_price'] },${ data['l1'][num]['ghar_kharch'] },${ data['l1'][num]['profit'] },'${c_date}')"  data-toggle="modal" data-target="#modal-xl" ><i class="fa-solid fa-pen"></i></button>
-                        <button onclick="delete(${ data['l1'][num]['id']},'${c_date}')" type="button" data-toggle="modal" data-target="#modal-sm"><i class="fa-solid fa-trash"></i></button></td>
+                        <button onclick="del(${ data['l1'][num]['id']},'${c_date}')" type="button" data-toggle="modal" data-target="#modal-sm"><i class="fa-solid fa-trash"></i></button></td>
                     </tr>`
                 }
                    d+=`<tr>
