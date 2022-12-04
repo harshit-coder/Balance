@@ -1,195 +1,203 @@
-{% extends "Base.html" %}
+{% extends 'Base.html' %}
 {% block body %}
-  <!-- Content Wrapper. Contains page content -->
 
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-
-      <!-- small modal for delete  -->
-       <div class="modal fade" id="modal-sm">
-        <div class="modal-dialog modal-sm">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Delete</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span id="delete_no" aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>Do you want to delete this row ?</p>
-            </div>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                <div id="delete">
-          <button id="button_delete" type="submit" class="btn btn-default">Yes</button>
-      </div>
-              <div id="del_result">
-      </div>
-
-            </div>
+<!--DELETING THE TABLE ROW -->
+    <div class="modal fade" id="modal-sm">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Delete</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span id="PP_close_delete_modal" aria-hidden="true">&times;</span></button>
           </div>
-          <!-- /.modal-content -->
+          <div class="modal-body">
+            <p>Do you want to delete this row ?</p>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+            <div id="PP_delete">
+              <button type="submit" class="btn btn-default">Yes</button>
+            </div>
+            <div id="PP_del_message"></div>
+          </div>
         </div>
-        <!-- /.modal-dialog -->
+        <!-- /.modal-content -->
       </div>
+      <!-- /.modal-dialog -->
+    </div>
 
-
-      <!--Big modal for update -->
- <div class="modal fade" id="modal-xl1">
-        <div class="modal-dialog modal-xl1">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Add -Today</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span id="add_no" aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-                    <form  method="post">
-
-          <div class="input-group mb-3">
-            <input type="number" id="add-sp" class="form-control" placeholder="Selling price" value="">
+<!--ADDING THE TABLE ROW -->
+    <div class="modal fade" id="modal-xl1">
+      <div class="modal-dialog modal-xl1">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Add</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span id="PP_close_add_modal" aria-hidden="true">&times;</span></button>
           </div>
-          <div class="input-group mb-3">
-            <input type="number" id="add-cp" class="form-control" placeholder="Cost Price" value="">
-          </div>
-          <div class="input-group mb-3">
-            <input type="number" id="add-gk" class="form-control" placeholder="Ghar Kharch" value="">
-          </div>
-          <div class="row">
-            <div class="col-4">
-              <button onclick="PriceEntry1()" type="submit"  class="btn btn-primary btn-block">Submit</button>
-            </div>
-            <!-- /.col -->
-          </div>
-        </form>
+          <div class="modal-body">
+            <form method="post">
 
-        <p id="entry_result"></p>
+              <div class="input-group date mb-3" id="reservationdate" data-target-input="nearest">
+                <input type="button" id="PP_add_ed" readonly class="form-control datetimepicker-input" data-target="#reservationdate" value="{{ curr_date }}" />
+                <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                  <div class="input-group-text">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                </div>
+              </div>
 
-            </div>
+              <div class="input-group mb-3">
+                <input type="number" id="PP_add_sp" class="form-control" placeholder="Selling price" value="" />
+              </div>
+              <div class="input-group mb-3">
+                <input type="number" id="PP_add_cp" class="form-control" placeholder="Cost Price" value="" />
+              </div>
+              <div class="input-group mb-3">
+                <input type="number" id="PP_add_gk" class="form-control" placeholder="Ghar Kharch" value="" />
+              </div>
+              <div class="input-group mb-3">
+                <input type="text" id="PP_add_desc" class="form-control" placeholder="Desc" value="" />
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  <button onclick="PP_price_entry()" type="submit" class="btn btn-primary btn-block">Submit</button>
+                </div>
+                <!-- /.col -->
+              </div>
+            </form>
 
+            <p id="PP_add_message"></p>
           </div>
-          <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
+        <!-- /.modal-content -->
       </div>
+      <!-- /.modal-dialog -->
+    </div>
 
-      <!-- /.modal -->
-
-      <div class="modal fade" id="modal-xl">
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Update</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span id="update_no" aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-               <form  method="post">
-          <div class="input-group mb-3">
-            <input type="number" id="sp" class="form-control" placeholder="Selling price" value="0">
+<!--UPDATING THE TABLE ROW -->
+    <div class="modal fade" id="modal-xl">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Update</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span id="PP_close_update_modal" aria-hidden="true">&times;</span></button>
           </div>
-          <div class="input-group mb-3">
-            <input type="number" id="cp" class="form-control" placeholder="Cost Price" value="0">
-          </div>
-          <div class="input-group mb-3">
-            <input type="number" id="gk" class="form-control" placeholder="Ghar Kharch" value="0">
-          </div>
-          <div class="row">
-            <div class="col-4">
-  <div class="modal-footer justify-content-between">
-<!--              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-      <div id="update">
-          <button id="button_update" type="submit" class="btn btn-default">Submit</button>
-      </div>
-      <div id="upd_result">
-      </div>
+          <div class="modal-body">
+            <form method="post">
 
+              <div class="input-group mb-3">
+                <input type="number" id="PP_update_sp" class="form-control" placeholder="Selling price" value="0" />
+              </div>
+              <div class="input-group mb-3">
+                <input type="number" id="PP_update_cp" class="form-control" placeholder="Cost Price" value="0" />
+              </div>
+              <div class="input-group mb-3">
+                <input type="number" id="PP_update_gk" class="form-control" placeholder="Ghar Kharch" value="0" />
+              </div>
+              <div class="input-group mb-3">
+                <input type="text" id="PP_update-desc" class="form-control" placeholder="Desc" value="" />
+              </div>
 
-            </div>
-            </div>
-            <!-- /.col -->
+              <div class="row">
+                <div class="col-4">
+                  <div class="modal-footer justify-content-between">
+                    <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                    <div id="PP_update">
+                      <button type="submit" class="btn btn-default">Submit</button>
+                    </div>
+                    <div id="PP_update_message"></div>
+                  </div>
+                </div>
+                <!-- /.col -->
+              </div>
+            </form>
           </div>
-        </form>
-
-            </div>
-
-          </div>
-          <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
+        <!-- /.modal-content -->
       </div>
+      <!-- /.modal-dialog -->
+    </div>
 
+<!--SHOWING THE TABLES-->
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-6">
             <div class="card card-primary">
-             
               <div class="card-body">
-                <!-- Date -->
-                <form  method="post">
+                
+                <!--FORM FOR SEARCHING THROUGH DATE-->
+                <form method="post">
                   <div class="row">
-                      <div class="col-8">
-                          <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                              <input type="button" id="c_date" readonly class="form-control datetimepicker-input" data-target="#reservationdate" value="{{date_2}}">
-                              <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                              </div>
+                    <div class="col-8">
+                      <div class="input-group date" id="reservationdate_4" data-target-input="nearest">
+                        <input type="button" id="PP_search_date" class="form-control datetimepicker-input" data-target="#reservationdate_4" value="{{ date_2 }}" />
+                        <div class="input-group-append" data-target="#reservationdate_4" data-toggle="datetimepicker">
+                          <div class="input-group-text">
+                            <i class="fa fa-calendar"></i>
                           </div>
+                        </div>
                       </div>
-                    <div class="col-4">
-                      <button type="submit" onclick="tables()" class="btn btn-primary btn-block">Submit</button>
                     </div>
+                    <div class="col-4">
+                      <button type="submit" onclick="PP_tables()" class="btn btn-primary btn-block">Submit</button>
+                    </div>
+                    <div id="PP_search_message"></div>
+                  </div>
                   </div>
                 </form>
+
               </div>
             </div>
           </div>
-      <button data-toggle="modal" data-target="#modal-xl1"   class="btn btn-primary btn-block">Add</button>
-
+          
+          <!--ADD BUTTON-->
+          <button data-toggle="modal" data-target="#modal-xl1" class="btn btn-primary btn-block">Add</button>
+          
           <div class="col-md-6">
-            <div id="daily_table_today" class="card-body">
-
-                  <div>
-                    <h4 id="balance">Balance: {{ balance }}</h4>
-
-                <table id="table_1" class="table table-bordered">
-                    <thead id = "head">
-                    <tr  style="background-color: black;">
-                        <th>SP</th>
-                        <th>CP</th>
-                        <th>PR</th>
-                        <th>GK</th>
-
-                         <th>Edit/Delete</th>
+            <div class="card-body">
+              <div>
+                <!--SHOWING BALANCE-->
+                <div id="PP_balance"><h4>Balance{{ balance }}}</h4></div>
+                <!--SHOWING THE TABLE BEFORE SEARCH-->
+                <table class="table table-bordered">
+                  <thead>
+                    <tr style="background-color: black;">
+                      <th>Edit/Delete</th>
+                      <th>SP</th>
+                      <th>CP</th>
+                      <th>PR</th>
+                      <th>GK</th>
+                      <th>Desc</th>
                     </tr>
-                    </thead>
-                    <tbody id="table">
-                 {% for num  in table %}
-                    <tr>
-                      <td  style="height: 78px; font-size: larger;">{{ num.selling_price }}</td>
-                      <td   style="height: 78px; font-size: larger;">{{ num.cost_price }}</td>
+                  </thead>
+                  <tbody id="PP_table_rows">
+                    {% for num in table %}
+                      <tr>
+                        <td>
+                          <button onclick="PP_edit_load({{ num.id }},{{ num.selling_price }},{{ num.cost_price }},{{ num.ghar_kharch }},{{ num.profit }},{{ num.desc }},'{{ date_2 }}')" type="button" data-toggle="modal" data-target="#modal-xl"><i class="fa-solid fa-pen"></i></button>
+                          <button onclick="PP_del_load({{ num.id }},'{{ date_2 }}')" type="button" data-toggle="modal" data-target="#modal-sm"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                        <td style="height: 78px; font-size: larger;">{{ num.selling_price }}</td>
+                        <td style="height: 78px; font-size: larger;">{{ num.cost_price }}</td>
                         <td style="height: 78px; font-size: larger;">{{ num.profit }}</td>
-                      <td  style="height: 78px; font-size: larger;">{{ num.ghar_kharch }}</td>
-
-                         <td><button onclick="edit({{ num.id }},{{ num.selling_price }},{{ num.cost_price }},{{ num.ghar_kharch }},{{ num.profit }},'{{date_2}}')" type="button" data-toggle="modal" data-target="#modal-xl" ><i class="fa-solid fa-pen"></i></button>
-                        <button onclick="del({{ num.id }},'{{date_2}}')" type="button" data-toggle="modal" data-target="#modal-sm" ><i class="fa-solid fa-trash"></i></button></td>
+                        <td style="height: 78px; font-size: larger;">{{ num.ghar_kharch }}</td>
+                        <td style="height: 78px; font-size: larger;">{{ num.desc }}</td>
+                      </tr>
+                    {% endfor %}
+                    <tr>
+                      <td></td>
+                      <td style="height: 78px; font-size: larger; ">T = {{ sp }}</td>
+                      <td style="height: 78px; font-size: larger;">T = {{ cp }}</td>
+                      <td style="height: 78px; font-size: larger;">T = {{ pf }}</td>
+                      <td style="height: 78px; font-size: larger;">T = {{ gk }}</td>
+                      <td></td>
                     </tr>
-                  {% endfor %}
-                                                 <tr>
-                      <td  style="height: 78px; font-size: larger; ">T = {{ sp }}</td>
-                      <td   style="height: 78px; font-size: larger;">T = {{ cp }}</td>
-                        <td style="height: 78px; font-size: larger;">T = {{ pf }}</td>
-                      <td  style="height: 78px; font-size: larger;">T = {{ gk }}</td>
-
-                         <td></td>
-                    </tr>
-                    </tbody>
+                  </tbody>
                 </table>
-                </div>
+
+              </div>
             </div>
           </div>
         </div>
@@ -199,6 +207,4 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-  {% endblock %}
-
+{% endblock %}

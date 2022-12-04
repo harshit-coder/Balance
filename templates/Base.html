@@ -81,17 +81,9 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
               <!-- Add icons to the links using the .nav-icon class
                    with font-awesome or any other icon font library -->
-              <li id="entrynav" class="nav-item ">
-                <a  href="/" class="nav-link">
-                  <i class="nav-icon fas fa-edit"></i>
-                  <p>
-                    Entry
-                  </p>
-                </a>
-
-              </li>
+       
               <li  class="nav-item">
-                <a id="table-nav" href="/table" class="nav-link">
+                <a id="table-nav" href="/" class="nav-link">
                   <i class="nav-icon fas fa-table"></i>
                   <p>
                    Tables
@@ -99,7 +91,7 @@
                 </a>
               </li>
               <li  class="nav-item">
-                <a id="result-nav" href="/result" class="nav-link">
+                <a id="result-nav" href="/personal_purchase_table_results" class="nav-link">
                   <i class="nav-icon fas fa-copy"></i>
                   <p>
                    Results
@@ -107,7 +99,7 @@
                 </a>
               </li>
                        <li  class="nav-item">
-                <a id="his-nav" href="/history" class="nav-link">
+                <a id="his-nav" href="/personal_purchase_table_history" class="nav-link">
                   <i class="nav-icon fas fa-copy"></i>
                   <p>
                    History
@@ -187,6 +179,9 @@
     $('#reservationdate2').datetimepicker({
         format: 'DD/MM/YYYY'
     });
+    $('#reservationdate_4').datetimepicker({
+      format: 'DD/MM/YYYY'
+  });
 
     //Date and time picker
     $('#reservationdatetime').datetimepicker({ icons: { time: 'far fa-clock' } });

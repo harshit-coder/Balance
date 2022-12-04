@@ -15,30 +15,30 @@
                   <div class="row">
                       <div class="col-6">
                           <div class="input-group date" id="reservationdate1" data-target-input="nearest">
-                              <input type="button" id="s_date" class="form-control datetimepicker-input" data-target="#reservationdate1">
+                              <input type="button" id="PP_s_date" class="form-control datetimepicker-input" data-target="#reservationdate1">
                               <div class="input-group-append" data-target="#reservationdate1" data-toggle="datetimepicker">
                                   <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                               </div>
                           </div>
                           <div class="input-group date" id="reservationdate2" data-target-input="nearest">
-                              <input type="button" id="e_date" class="form-control datetimepicker-input" data-target="#reservationdate2" />
+                              <input type="button" id="PP_e_date" class="form-control datetimepicker-input" data-target="#reservationdate2" />
                               <div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
                                   <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                               </div>
                           </div>
                       </div>
                     <div class="col-6">
-                      <button type="submit" onclick="result()" class="btn btn-primary btn-block">Submit</button>
+                      <button type="submit" onclick="PP_result()" class="btn btn-primary btn-block">Submit</button>
                     </div>
                   </div>
                 </form>
-                  <div id="e_message">
+                  <div id="PP_res_message">
                   </div>
 
               </div>
             </div>
           </div>
-          <div id="res" class="col-md-6">
+          <div id="PP_res_head" class="col-md-6">
               <h3>{{month}}</h3>
             <div class="card-body">
                 <div class="row">
@@ -48,7 +48,9 @@
 
                         <div class="info-box-content">
                           <span class="info-box-text">Selling price</span>
-                          <span class="info-box-number">{{sum_sp}}</span>
+                          <div id="PP_res_sp">
+                            <span class="info-box-number">{{sum_sp}}</span>
+                          </div>
                         </div>
                         <!-- /.info-box-content -->
                       </div>
@@ -61,7 +63,9 @@
 
                         <div class="info-box-content">
                           <span class="info-box-text">Cost Price</span>
-                          <span class="info-box-number">{{sum_cp}}</span>
+                          <div id="PP_res_cp">
+                            <span class="info-box-number">{{sum_cp}}</span>
+                          </div>
                         </div>
                         <!-- /.info-box-content -->
                       </div>
@@ -74,7 +78,9 @@
 
                         <div class="info-box-content">
                           <span class="info-box-text">Ghar Kharch</span>
-                          <span class="info-box-number">{{sum_gk}}</span>
+                          <div id="PP_res_gk">
+                            <span class="info-box-number">{{sum_gk}}</span>
+                          </div>
                         </div>
                         <!-- /.info-box-content -->
                       </div>
@@ -87,7 +93,9 @@
 
                         <div class="info-box-content">
                           <span class="info-box-text">Profit</span>
-                          <span class="info-box-number">{{profit}}</span>
+                          <div id="PP_res_profit">
+                            <span class="info-box-number">{{profit}}</span>
+                          </div>
                         </div>
                         <!-- /.info-box-content -->
                       </div>
@@ -100,7 +108,9 @@
 
                         <div class="info-box-content">
                           <span class="info-box-text">Balance</span>
-                          <span class="info-box-number">{{balance}}</span>
+                          <div id="PP_res_balance">
+                            <span class="info-box-number">{{balance}}</span>
+                          </div>
                         </div>
                         <!-- /.info-box-content -->
                       </div>

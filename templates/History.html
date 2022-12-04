@@ -1,56 +1,50 @@
-{% extends "Base.html" %}
+{% extends 'Base.html' %}
 {% block body %}
   <!-- Content Wrapper. Contains page content -->
 
   <div class="content-wrapper">
-
     <section class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-6">
             <div id="daily_table_today" class="card-body">
-                  <div>
-                    <h4 id="balance">Balance: {{balance}}</h4>
-                <table id="table_1" class="table table-bordered">
-                    <thead id = "head">
-                    <tr  style="background-color: black;">
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>SP</th>
-                        <th>CP</th>
-                        <th>PR</th>
-                        <th>GK</th>
-
-
-
+              <div>
+                <h4 id="balance">Balance: {{ balance }}</h4>
+                <table class="table table-bordered">
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td style="height: 78px; font-size: larger; ">T = {{ sp }}</td>
+                    <td style="height: 78px; font-size: larger;">T = {{ cp }}</td>
+                    <td style="height: 78px; font-size: larger;">T = {{ pf }}</td>
+                    <td style="height: 78px; font-size: larger;">T = {{ gk }}</td>
+                  </tr>
+                  <thead>
+                    <tr style="background-color: black;">
+                      <th>Date</th>
+                      <th>Time</th>
+                      <th>SP</th>
+                      <th>CP</th>
+                      <th>PR</th>
+                      <th>GK</th>
+                      <th>Desc</th>
                     </tr>
-                    </thead>
-                    <tbody>
-                 {% for num  in table %}
-                    <tr>
-                        <td  style="height: 78px; font-size: larger;">{{ num.date }}</td>
-                        <td  style="height: 78px; font-size: larger;">{{ num.time }}</td>
-                      <td  style="height: 78px; font-size: larger;">{{ num.selling_price }}</td>
-                      <td   style="height: 78px; font-size: larger;">{{ num.cost_price }}</td>
-                         <td style="height: 78px; font-size: larger;">{{ num.profit }}</td>
-                      <td  style="height: 78px; font-size: larger;">{{ num.ghar_kharch }}</td>
-
-
-                    </tr>
-                  {% endfor %}
-                                                   <tr>
-                                                       <td></td>
-                                                       <td></td>
-                      <td  style="height: 78px; font-size: larger; ">T = {{ sp }}</td>
-                      <td   style="height: 78px; font-size: larger;">T = {{ cp }}</td>
-                        <td style="height: 78px; font-size: larger;">T = {{ pf }}</td>
-                      <td  style="height: 78px; font-size: larger;">T = {{ gk }}</td>
-
-
-                    </tr>
-                    </tbody>
+                  </thead>
+                  <tbody>
+                    {% for num in table %}
+                      <tr>
+                        <td style="height: 78px; font-size: larger;">{{ num.date }}</td>
+                        <td style="height: 78px; font-size: larger;">{{ num.time }}</td>
+                        <td style="height: 78px; font-size: larger;">{{ num.selling_price }}</td>
+                        <td style="height: 78px; font-size: larger;">{{ num.cost_price }}</td>
+                        <td style="height: 78px; font-size: larger;">{{ num.profit }}</td>
+                        <td style="height: 78px; font-size: larger;">{{ num.ghar_kharch }}</td>
+                        <td style="height: 78px; font-size: larger;">{{ num.desc }}</td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
                 </table>
-                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -60,6 +54,4 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-  {% endblock %}
-
+{% endblock %}
