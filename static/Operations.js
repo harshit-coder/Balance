@@ -3,8 +3,9 @@ const host = 'http://127.0.0.1:5000/'
 
 
 async function PP_tables() {
-    console.log("hello")
+    alert('call')
     event.preventDefault();
+    console.log("hello")
     let PP_search_date = document.getElementById("PP_search_date").value
     date_validation(PP_search_date)
     const all_data = { 
@@ -33,6 +34,7 @@ async function PP_price_entry() {
     date_validation(ed)
     const prices = { sp: sp, cp: cp, gk: gk, ed: ed, desc: desc};
     try {
+        console.log(all_data)
         const response = await axios.post(host + 'personal_purchase_table_add', prices);
         const data = response.data
         fetch_PP_table(data)

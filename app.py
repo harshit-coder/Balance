@@ -6,7 +6,7 @@ import time
 from datetime import date
 
 import git
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 
 from app_methods import create_comection, date_compare, fetch_balance_price_data, dates_range2, dates_range_by_month, fetch_personal_purchase_results, sp_cp_gk_validation, date_validation
 
@@ -32,7 +32,7 @@ def personal_purchase_table_results():
         res = end_date_1 - start_date_1
         tuple_dr = tuple(dates_range2(res, start_date_1))
         res = fetch_personal_purchase_results(tuple_dr)
-        return res
+        return jsonify(res)
 
     else:
         month = datetime.datetime.now().month
@@ -91,7 +91,7 @@ def personal_purchase_table():
     if request.method == 'POST':
         fetch_date = request.json.get("c_date")
         data = fetch_balance_price_data(fetch_date)
-        return data
+        return jsonify(data)
     else:
         date = datetime.date.today()
         today_date = date.strftime("%d/%m/%Y")
@@ -119,7 +119,7 @@ def personal_purchase_table_delete():
     cur.close()
     conn.close()
     res = fetch_balance_price_data(c_date)
-    return res
+    return jsonify(res)
 
 
 @app.route("/personal_purchase_table_edit", methods=['GET', 'POST'])
@@ -136,7 +136,7 @@ def personal_purchase_table_edit():
         cur.execute(sql, (sp, cp, gk, profit, desc, id))
         conn.commit()
         res = fetch_balance_price_data(ed)
-        return res
+        return jsonify(res)
     except Exception as e:
         raise e
 
@@ -158,11 +158,12 @@ def personal_purchase_table_add():
             cur.close()
             conn.close()
             res = fetch_balance_price_data(ed)
-            return res
+            return jsonify(res)
     except Exception as e:
         raise e
 
 
 # driver function
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,host='127.0.0.1',port=5002)
+

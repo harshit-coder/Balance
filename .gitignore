@@ -3,9 +3,12 @@
 
 ### Flask ###
 instance/*
+*iml
+*xml
 !instance/.gitignore
 .webassets-cache
 .env
+.idea
 
 ### Flask.Python Stack ###
 # Byte-compiled / optimized / DLL files
@@ -410,3 +413,4 @@ venv2/bin/python3.8
 .idea/Balance.iml
 .vscode/launch.json
 .idea/misc.xml
+.idea/Balance.iml
