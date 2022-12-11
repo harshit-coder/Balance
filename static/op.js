@@ -22,11 +22,9 @@ function date_validation(input_date) {
     let td_date = new Date()
     if (input_date === "" & input_date.trim().length == 0) {
         window.alert("Please enter  a date")
-        window.location.reload();
     }
     else if (cd_date > td_date) {
         window.alert("please don't enter future dates")
-        window.location.reload();
     }
 }
 
@@ -68,38 +66,36 @@ function fetch_PP_table(data) {
 
 
 async function PP_tables() {
+    event.preventDefault();
+    console.log("hello")
+    let PP_search_date = document.getElementById("PP_search_date").value
+    date_validation(PP_search_date)
+    const all_data = {
+        c_date: PP_search_date
+    };
     try {
-        event.preventDefault();
-        console.log("hello")
-        let PP_search_date = document.getElementById("PP_search_date").value
-        date_validation(PP_search_date)
-        const all_data = {
-            c_date: PP_search_date
-        };
-    
         const response = await axios.post(host, all_data);
         console.log(response)
         const data = response.data
         fetch_PP_table(data)
     } catch (errors) {
         console.log(errors["message"]);
-        const message = errors["message"]
+        message = errors["message"]
         document.getElementById('PP_search_message').innerHTML = `<p>${message}</p>`
     }
 }
 
 async function PP_price_entry() {
+    event.preventDefault();
+    const ed = document.getElementById("PP_add_ed").value
+    const sp = document.getElementById("PP_add_sp").value
+    const cp = document.getElementById("PP_add_cp").value
+    const gk = document.getElementById("PP_add_gk").value
+    const desc = document.getElementById("PP_add_desc").value
+    sp_cp_gk_validation(sp,cp,gk)
+    date_validation(ed)
+    const prices = { sp: sp, cp: cp, gk: gk, ed: ed, desc: desc};
     try {
-        event.preventDefault();
-        const ed = document.getElementById("PP_add_ed").value
-        const sp = document.getElementById("PP_add_sp").value
-        const cp = document.getElementById("PP_add_cp").value
-        const gk = document.getElementById("PP_add_gk").value
-        const desc = document.getElementById("PP_add_desc").value
-        sp_cp_gk_validation(sp,cp,gk)
-        date_validation(ed)
-        const prices = { sp: sp, cp: cp, gk: gk, ed: ed, desc: desc};
-    
         console.log(prices)
         const response = await axios.post(host + 'personal_purchase_table_add', prices);
         const data = response.data
@@ -113,7 +109,7 @@ async function PP_price_entry() {
         document.getElementById("PP_close_add_modal").click()
     } catch (errors) {
         console.log(errors["message"]);
-        const message = errors["message"]
+        message = errors["message"]
         document.getElementById('PP_add_message').innerHTML = `<p>${message}</p>`
     }
 
@@ -125,10 +121,9 @@ function PP_del_load(id, c_date) {
 }
 
 async function PP_delete(id, c_date) {
+    event.preventDefault();
+    const prices = {id: id,c_date: c_date};
     try {
-        event.preventDefault();
-        const prices = {id: id,c_date: c_date};
-    
         const response = await axios.post(host + 'personal_purchase_table_delete', prices);
         console.log(response)
         const data = response.data
@@ -137,7 +132,7 @@ async function PP_delete(id, c_date) {
 
     } catch (errors) {
         console.log("errors", errors);
-        const message = errors["message"]
+        message = errors["message"]
         document.getElementById('PP_del_message').innerHTML = `<p>${errors["message"]}</p>`
     }
 }
@@ -154,17 +149,16 @@ function PP_edit_load(id, sp, cp, gk, profit, desc, c_date) {
 }
 
 async function PP_update(id, c_date) {
-    try {
-        event.preventDefault();
-        console.log(c_date)
-        const sp = document.getElementById("PP_update_sp").value
-        const cp = document.getElementById("PP_update_cp").value
-        const gk = document.getElementById("PP_update_gk").value
-        const desc = document.getElementById("PP_update_desc").value
-        sp_cp_gk_validation(sp,cp,gk)
-        const prices = {sp: sp,cp: cp,gk: gk,id: id,ed: c_date,desc: desc};
+    event.preventDefault();
+    console.log(c_date)
+    const sp = document.getElementById("PP_update_sp").value
+    const cp = document.getElementById("PP_update_cp").value
+    const gk = document.getElementById("PP_update_gk").value
+    const desc = document.getElementById("PP_update_desc").value
+    sp_cp_gk_validation(sp,cp,gk)
+    const prices = {sp: sp,cp: cp,gk: gk,id: id,ed: c_date,desc: desc};
 
-    
+    try {
         const response = await axios.post(host + 'personal_purchase_table_edit', prices);
         const data = response.data
         fetch_PP_table(data)
@@ -185,7 +179,6 @@ function date_compare(start_date, end_date){
     let e_date = new Date(end_date.split("/")[2], end_date.split("/")[1] - 1, end_date.split("/")[0])
     if(s_date > e_date){
         window.alert("Please enter proper dates")
-        window.location.reload();
     }
 }
 
@@ -193,13 +186,12 @@ function date_compare(start_date, end_date){
 
 
 async function PP_result() {
+    event.preventDefault();
+    const s_date = document.getElementById("PP_s_date").value
+    const e_date = document.getElementById("PP_e_date").value
+    date_compare(s_date, e_date)
+    const r_data = { s_date: s_date,e_date: e_date};
     try {
-        event.preventDefault();
-        const s_date = document.getElementById("PP_s_date").value
-        const e_date = document.getElementById("PP_e_date").value
-        date_compare(s_date, e_date)
-        const r_data = { s_date: s_date,e_date: e_date};
-
         const response = await axios.post(host + 'personal_purchase_table_results', r_data);
         const data = response.data
         document.getElementById("PP_s_date").value = s_date
@@ -215,16 +207,8 @@ async function PP_result() {
 
     } catch (errors) {
         console.log("errors", errors);
-        const message = errors["message"]
+        message = errors["message"]
         document.getElementById('PP_res_message').innerHTML = `<p>${errors["message"]}</p>`
     }
 }
-
-
-
-
-
-
-
-
 

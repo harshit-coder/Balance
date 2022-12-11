@@ -39,7 +39,7 @@
                         <td style="height: 78px; font-size: larger;">{{ num.cost_price }}</td>
                         <td style="height: 78px; font-size: larger;">{{ num.profit }}</td>
                         <td style="height: 78px; font-size: larger;">{{ num.ghar_kharch }}</td>
-                        <td style="height: 78px; font-size: larger;">{{ num.desc }}</td>
+                        <td style="height: 78px; font-size: larger;">{% if num.desc %} {{ num.desc }} {% else %} {% endif %}</td>
                       </tr>
                     {% endfor %}
                   </tbody>

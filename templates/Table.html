@@ -95,7 +95,7 @@
                 <input type="number" id="PP_update_gk" class="form-control" placeholder="Ghar Kharch" value="0" />
               </div>
               <div class="input-group mb-3">
-                <input type="text" id="PP_update-desc" class="form-control" placeholder="Desc" value="" />
+                <input type="text" id="PP_update_desc" class="form-control" placeholder="Desc" value="" />
               </div>
 
               <div class="row">
@@ -158,7 +158,7 @@
             <div class="card-body">
               <div>
                 <!--SHOWING BALANCE-->
-                <div id="PP_balance"><h4>Balance{{ balance }}}</h4></div>
+                <div id="PP_balance"><h4>Balance: {{ balance }}</h4></div>
                 <!--SHOWING THE TABLE BEFORE SEARCH-->
                 <table class="table table-bordered">
                   <thead>
@@ -175,7 +175,7 @@
                     {% for num in table %}
                       <tr>
                         <td>
-                          <button onclick="PP_edit_load({{ num.id }},{{ num.selling_price }},{{ num.cost_price }},{{ num.ghar_kharch }},{{ num.profit }},{{ num.desc }},'{{ date_2 }}')" type="button" data-toggle="modal" data-target="#modal-xl"><i class="fa-solid fa-pen"></i></button>
+                          <button onclick="PP_edit_load({{ num.id }},{{ num.selling_price }},{{ num.cost_price }},{{ num.ghar_kharch }},{{ num.profit }},'{{ num.desc }}','{{ date_2 }}')" type="button" data-toggle="modal" data-target="#modal-xl"><i class="fa-solid fa-pen"></i></button>
                           <button onclick="PP_del_load({{ num.id }},'{{ date_2 }}')" type="button" data-toggle="modal" data-target="#modal-sm"><i class="fa-solid fa-trash"></i></button>
                         </td>
                         <td style="height: 78px; font-size: larger;">{{ num.selling_price }}</td>

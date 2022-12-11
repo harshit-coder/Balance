@@ -4,7 +4,8 @@
 import datetime
 import time
 from datetime import date
-
+import config
+from flask  import abort
 import git
 from flask import Flask, request, render_template, jsonify
 
@@ -29,10 +30,15 @@ def personal_purchase_table_results():
     if request.method == 'POST':
         data = request.json
         start_date_1, end_date_1 = date_compare(data)
-        res = end_date_1 - start_date_1
-        tuple_dr = tuple(dates_range2(res, start_date_1))
+        if config.PASSED_LAST_DATE == 'exclude':
+            res = end_date_1 - start_date_1
+        else:
+            end_date_1 = end_date_1 + datetime.timedelta(days=1)
+            res = end_date_1 - start_date_1
+       
+        tuple_dr = tuple(dates_range2(res.days, start_date_1))
         res = fetch_personal_purchase_results(tuple_dr)
-        return jsonify(res)
+        return jsonify(res),200
 
     else:
         month = datetime.datetime.now().month
@@ -74,7 +80,8 @@ def personal_purchase_table_history():
                        'selling_price': i[3],
                        'cost_price': i[4],
                        'ghar_kharch': i[5],
-                       'profit': i[6]})
+                       'profit': i[6]
+                       ,'desc':i[8]})
             sp = sp + i[3]
             cp = cp + i[4]
             gk = gk + i[5]
@@ -119,6 +126,7 @@ def personal_purchase_table_delete():
     cur.close()
     conn.close()
     res = fetch_balance_price_data(c_date)
+    print(res)
     return jsonify(res)
 
 
@@ -128,11 +136,12 @@ def personal_purchase_table_edit():
         conn, cur = create_comection()
         data = request.json
         id = data.get("id")
+
         sp, cp, gk = sp_cp_gk_validation(data)
         desc = data.get('desc').strip()
-        ed = date_validation(data)
+        ed = date_validation(data.get('ed'))
         profit = sp - cp
-        sql = 'UPDATE balance_price set selling_price=%s, cost_price=%s, ghar_kharch=%s, profit = %s desc = %s where id  = %s'
+        sql = 'UPDATE balance_price set selling_price=%s, cost_price=%s, ghar_kharch=%s, profit = %s ,description = %s where id  = %s'
         cur.execute(sql, (sp, cp, gk, profit, desc, id))
         conn.commit()
         res = fetch_balance_price_data(ed)
@@ -148,11 +157,11 @@ def personal_purchase_table_add():
             conn, cur = create_comection()
             data = request.json
             sp, cp, gk = sp_cp_gk_validation(data)
-            ed = date_validation(data)
+            ed = date_validation(data.get('ed'))
             desc = data.get('desc').strip()
             profit = sp - cp
             time_of_inserting = time.strftime("%I:%M %p")
-            sql = 'INSERT INTO balance_price (selling_price, cost_price, ghar_kharch, profit,date,time,desc)VALUES (%s, %s, %s, %s,%s, %s,%s)'
+            sql = 'INSERT INTO balance_price (selling_price, cost_price, ghar_kharch, profit,date,time,description)VALUES (%s, %s, %s, %s,%s, %s, %s)'
             cur.execute(sql, (sp, cp, gk, profit, ed, time_of_inserting, desc))
             conn.commit()
             cur.close()
