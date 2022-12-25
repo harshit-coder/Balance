@@ -9,37 +9,28 @@
           <div class="col-md-6">
             <div id="daily_table_today" class="card-body">
               <div>
-                <h4 id="balance">Balance: {{ balance }}</h4>
+                 <div id="PUR_TO_PAY"><h4>To Pay : {{ total_to_pay }}</h4></div>
+                <div id="PUR_PAID_EXTRA"><h4>Paid Extra: {{ total_paid_extra }}</h4></div>
+
                 <table class="table table-bordered">
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td style="height: 78px; font-size: larger; ">T = {{ sp }}</td>
-                    <td style="height: 78px; font-size: larger;">T = {{ cp }}</td>
-                    <td style="height: 78px; font-size: larger;">T = {{ pf }}</td>
-                    <td style="height: 78px; font-size: larger;">T = {{ gk }}</td>
-                  </tr>
                   <thead>
                     <tr style="background-color: black;">
                       <th>Date</th>
                       <th>Time</th>
-                      <th>SP</th>
-                      <th>CP</th>
-                      <th>PR</th>
-                      <th>GK</th>
+                      <th>Purchase</th>
+                      <th>To Pay</th>
                       <th>Desc</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {% for num in table %}
+                    {% for num in l1 %}
                       <tr>
                         <td style="height: 78px; font-size: larger;">{{ num.date }}</td>
                         <td style="height: 78px; font-size: larger;">{{ num.time }}</td>
-                        <td style="height: 78px; font-size: larger;">{{ num.selling_price }}</td>
-                        <td style="height: 78px; font-size: larger;">{{ num.cost_price }}</td>
-                        <td style="height: 78px; font-size: larger;">{{ num.profit }}</td>
-                        <td style="height: 78px; font-size: larger;">{{ num.ghar_kharch }}</td>
-                        <td style="height: 78px; font-size: larger;">{% if num.desc %} {{ num.desc }} {% else %} {% endif %}</td>
+                        <td style="height: 78px; font-size: larger;">{{ num.purchase }}</td>
+                        <td style="height: 78px; font-size: larger;">{{ num.to_pay }}</td>
+                        <td style="height: 78px; font-size: larger;">{{ num.desc }}</td>
+
                       </tr>
                     {% endfor %}
                   </tbody>

@@ -38,7 +38,7 @@
             <form method="post">
 
               <div class="input-group date mb-3" id="reservationdate_5" data-target-input="nearest">
-                <input type="button" id="PUR_add_ed" readonly class="form-control datetimepicker-input" data-target="#reservationdate_5" value="{{ curr_date }}" />
+                <input type="button" id="PUR_add_ed"  class="form-control datetimepicker-input" data-target="#reservationdate_5" value="{{ curr_date }}" />
                 <div class="input-group-append" data-target="#reservationdate_5" data-toggle="datetimepicker">
                   <div class="input-group-text">
                     <i class="fa fa-calendar"></i>
@@ -122,7 +122,7 @@
                     <div class="col-8">
 
                       <div class="input-group date" id="reservationdate_6" data-target-input="nearest">
-                        <input type="button" id="PP_start_search_date" class="form-control datetimepicker-input" data-target="#reservationdate_6" value="{{ sc_date }}" />
+                        <input type="button" id="PP_start_search_date" class="form-control datetimepicker-input" data-target="#reservationdate_6" value="{{ s_date }}" />
                         <div class="input-group-append" data-target="#reservationdate_6" data-toggle="datetimepicker">
                           <div class="input-group-text">
                             <i class="fa fa-calendar"></i>
@@ -131,7 +131,7 @@
                       </div>
 
                       <div class="input-group date" id="reservationdate_7" data-target-input="nearest">
-                        <input type="button" id="PP_end_search_date" class="form-control datetimepicker-input" data-target="#reservationdate_7" value="{{ ec_date }}" />
+                        <input type="button" id="PP_end_search_date" class="form-control datetimepicker-input" data-target="#reservationdate_7" value="{{ e_date }}" />
                         <div class="input-group-append" data-target="#reservationdate_7" data-toggle="datetimepicker">
                           <div class="input-group-text">
                             <i class="fa fa-calendar"></i>
@@ -152,15 +152,16 @@
           </div>
           
           <!--ADD BUTTON-->
-          <button data-toggle="modal" data-target="#modal-xl1" class="btn btn-primary btn-block">Add</button>
+         
+          <button type="button"  data-toggle="modal" data-target="#modal-xl1" class="btn btn-primary btn-block">Add</button>
           
           <div class="col-md-6">
             <div class="card-body">
               <div>
                 <!--SHOWING BALANCE-->
              
-                <div id="PUR_TO_PAY"><h4>To Pay: {{ to_pay }}</h4></div>
-                <div id="PUR_PAID_EXTRA"><h4>Paid extra: {{ paid_extra }}</h4></div>
+                <div id="PUR_TO_PAY"><h4>To Pay : {{ total_to_pay }}</h4></div>
+                <div id="PUR_PAID_EXTRA"><h4>Paid Extra: {{ total_paid_extra }}</h4></div>
               
                 <!--SHOWING THE TABLE BEFORE SEARCH-->
                 <table class="table table-bordered">
@@ -174,11 +175,11 @@
                     </tr>
                   </thead>
                   <tbody id="PUR_table_rows">
-                    {% for num in table %}
+                    {% for num in l1 %}
                       <tr>
                         <td>
-                          <button onclick="PUR_edit_load({{ num.id }},{{ num.purchase }},'{{ num.desc }}','{{ s_date_2 }}','{{ e_date_2 }}')" type="button" data-toggle="modal" data-target="#modal-xl"><i class="fa-solid fa-pen"></i></button>
-                          <button onclick="PUR_del_load({{ num.id }},'{{ s_date_2 }}','{{ e_date_2 }}')" type="button" data-toggle="modal" data-target="#modal-sm"><i class="fa-solid fa-trash"></i></button>
+                          <button onclick="PUR_edit_load({{ num.id }},{{ num.purchase }},'{{ num.desc }}','{{ s_date }}','{{ e_date }}')" type="button" data-toggle="modal" data-target="#modal-xl"><i class="fa-solid fa-pen"></i></button>
+                          <button onclick="PUR_del_load({{ num.id }},'{{ s_date }}','{{ e_date }}')" type="button" data-toggle="modal" data-target="#modal-sm"><i class="fa-solid fa-trash"></i></button>
                         </td>
                         <td style="height: 78px; font-size: larger;">{{ num.date }}</td>
                         <td style="height: 78px; font-size: larger;">{{ num.purchase }}</td>

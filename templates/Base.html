@@ -127,6 +127,24 @@
                 </a>
               </li>
 
+                  <li  class="nav-item">
+                <a id="his-nav" href="/paid" class="nav-link">
+                  <i class="nav-icon fas fa-table"></i>
+                  <p>
+                   Paid
+                  </p>
+                </a>
+              </li>
+
+                  <li  class="nav-item">
+                <a id="his-nav" href="/paid_history" class="nav-link">
+                  <i class="nav-icon fas fa-copy"></i>
+                  <p>
+                   Paid History
+                  </p>
+                </a>
+              </li>
+
             </ul>
           </nav>
       <!-- /.sidebar-menu -->
@@ -201,17 +219,17 @@
         format: 'DD/MM/YYYY'
     });
     $('#reservationdate_4').datetimepicker({
+        format: 'DD/MM/YYYY'
+    });
+    $('#reservationdate_5').datetimepicker({
+        format: 'DD/MM/YYYY'
+    });
+      $('#reservationdate_6').datetimepicker({
+        format: 'DD/MM/YYYY'
+    });
+    $('#reservationdate_7').datetimepicker({
       format: 'DD/MM/YYYY'
-  });
-  $('#reservationdate_5').datetimepicker({
-    format: 'DD/MM/YYYY'
-});
-  $('#reservationdate_6').datetimepicker({
-    format: 'DD/MM/YYYY'
-});
-$('#reservationdate_7').datetimepicker({
-  format: 'DD/MM/YYYY'
-});
+    });
 
     //Date and time picker
     $('#reservationdatetime').datetimepicker({ icons: { time: 'far fa-clock' } });

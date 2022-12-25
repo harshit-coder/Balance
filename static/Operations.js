@@ -1,6 +1,7 @@
 // const host = 'https://balanceapp.pythonanywhere.com/'
 const host = 'http://127.0.0.1:5002/'
 
+
 function sp_cp_gk_validation(sp, cp, gk) {
     if ((sp === "" & sp.trim().length == 0) & (cp === "" & cp.trim().length == 0) & (gk === "" & gk.trim().length == 0)) {
         console.log("all are empty")
@@ -104,7 +105,7 @@ async function PP_price_entry() {
 
 
 function PP_del_load(id, c_date) {
- document.getElementById("PP_delete").innerHTML = `<button id="button_delete" type="submit" onclick="PP_delete(${id},'${c_date}')" class="btn btn-default">Yes</button>`
+ document.getElementById("PP_delete").innerHTML = `<button type="submit" onclick="PP_delete(${id},'${c_date}')" class="btn btn-default">Yes</button>`
 }
 
 async function PP_delete(id, c_date) {
@@ -187,8 +188,6 @@ async function PP_result() {
         document.getElementById('PP_res_message').innerHTML = `<p>${errors["message"]}</p>`
     }
 }
-
-
 
 
 

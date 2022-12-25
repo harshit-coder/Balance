@@ -9,7 +9,7 @@ from flask  import abort
 import git
 from flask import Flask, request, render_template, jsonify
 
-from app_methods import create_comection, date_compare, fetch_balance_price_data, dates_range2, dates_range_by_month, fetch_personal_purchase_results, fetch_purchase_data, sp_cp_gk_validation, date_validation
+from app_methods import create_comection, date_compare, fetch_balance_price_data, dates_range2, dates_range_by_month, fetch_personal_purchase_results, fetch_purchase_data, sp_cp_gk_validation, date_validation, purchase_validation
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
 
@@ -77,10 +77,10 @@ def personal_purchase_table_history():
 @app.route("/purchase_table_history", methods=['GET', 'POST'])
 def purchase_table_history():
     data = fetch_purchase_data()
-    return render_template("purcchase_history.html", 
-                           table=data.get('l1'), 
-                           to_pay=data.get('to_pay'),
-                           paid_extra=data.get('paid_extra'),
+    return render_template("purchase_history.html",
+                           l1=data.get('l1'),
+                           total_to_pay=data.get('total_to_pay'),
+                           total_paid_extra=data.get('total_paid_extra'),
                            )
 
 
@@ -119,21 +119,29 @@ def purchase_table():
        
         tuple_dr = tuple(dates_range2(res.days, start_date_1))
         data = fetch_purchase_data(tuple_dr,start_fetch_date,end_fetch_date)
+        print(data)
         return jsonify(data)
     else:
         this_month = datetime.datetime.now().month
         year = datetime.datetime.now().year
         start_date = datetime.date(year, this_month, 1)
-        res = datetime.date.today() - start_date
+        if config.PASSED_LAST_DATE == 'exclude':
+            res = datetime.date.today() - start_date
+        else:
+            res = datetime.date.today() - start_date +  datetime.timedelta(days=1)
+
+        print(res.days)
         tuple_dr = tuple(dates_range2(res.days, start_date))
+        print(tuple_dr)
         data = fetch_purchase_data(tuple_dr,start_date.strftime("%d/%m/%Y"),datetime.date.today().strftime("%d/%m/%Y"))
         print(data)
+
         return render_template("purchased.html",
-                                table=data.get('table'), 
-                                to_pay=data.get('to_pay'),
-                                paid_extra=data.get('paid_extra'),
-                                sc_date=data.get('s_date'),
-                                ec_date=data.get('e_date'),
+                                l1=data.get('l1'),
+                                total_to_pay=data.get('total_to_pay'),
+                                total_paid_extra=data.get('total_paid_extra'),
+                                s_date=data.get('s_date'),
+                                e_date=data.get('e_date'),
                                 curr_date=data.get('curr_date'))
 
 
@@ -159,8 +167,8 @@ def purchase_table_delete():
     conn, cur = create_comection()
     data = request.json
     id = data.get("id")
-    sc_date = data.get("sc_date")
-    ec_date = data.get("ec_date")
+    sc_date = date_validation(data.get('sc_date'))
+    ec_date = date_validation(data.get('ec_date'))
     start_date_1, end_date_1 = date_compare(sc_date,ec_date)
     if config.PASSED_LAST_DATE == 'exclude':
         res = end_date_1 - start_date_1
@@ -195,6 +203,33 @@ def personal_purchase_table_edit():
         return jsonify(res)
     except Exception as e:
         raise e
+
+@app.route("/purchase_table_edit", methods=['GET', 'POST'])
+def purchase_table_edit():
+    try:
+        if request.json:
+            conn, cur = create_comection()
+            data = request.json
+            id = data.get("id")
+            amt = purchase_validation(data)
+            desc = data.get('desc').strip()
+            sc_date = date_validation(data.get('sc_date'))
+            ec_date = date_validation(data.get('ec_date'))
+            sql = "UPDATE purchase_details SET  purchase_amount=%s, `desc`=%s  WHERE id=%s;"
+            cur.execute(sql, (amt, desc, id))
+            conn.commit()
+            start_date_1, end_date_1 = date_compare(sc_date, ec_date)
+            if config.PASSED_LAST_DATE == 'exclude':
+                res = end_date_1 - start_date_1
+            else:
+                end_date_1 = end_date_1 + datetime.timedelta(days=1)
+                res = end_date_1 - start_date_1
+            tuple_dr = tuple(dates_range2(res.days, start_date_1))
+            res =fetch_purchase_data(tuple_dr,sc_date,ec_date)
+            print(res)
+            return jsonify(res)
+    except Exception as e:
+        raise e
     
 
 @app.route("/personal_purchase_table_add", methods=['GET', 'POST'])
@@ -214,6 +249,27 @@ def personal_purchase_table_add():
             cur.close()
             conn.close()
             res = fetch_balance_price_data(ed)
+            return jsonify(res)
+    except Exception as e:
+        raise e
+
+@app.route("/purchase_table_add", methods=['GET', 'POST'])
+def purchase_table_add():
+    try:
+        if request.json:
+            conn, cur = create_comection()
+            data = request.json
+            amt = purchase_validation(data)
+            ed = date_validation(data.get('ed'))
+            desc = data.get('desc').strip()
+            time_of_inserting = time.strftime("%I:%M %p")
+            sql= "INSERT INTO purchase_details (`date`, `time`, purchase_amount, `Full paid`, `desc`) VALUES(%s, %s, %s, 0, %s);"
+            cur.execute(sql, (ed, time_of_inserting, amt, desc))
+            conn.commit()
+            cur.close()
+            conn.close()
+            res =fetch_purchase_data((ed,),ed,ed)
+            print(res)
             return jsonify(res)
     except Exception as e:
         raise e

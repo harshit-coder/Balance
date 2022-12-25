@@ -8,17 +8,17 @@
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Delete</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span id="PP_close_delete_modal" aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span id="PUR_close_delete_modal" aria-hidden="true">&times;</span></button>
           </div>
           <div class="modal-body">
             <p>Do you want to delete this row ?</p>
           </div>
           <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-            <div id="PP_delete">
+            <div id="PUR_delete">
               <button type="submit" class="btn btn-default">Yes</button>
             </div>
-            <div id="PP_del_message"></div>
+            <div id="PUR_del_message"></div>
           </div>
         </div>
         <!-- /.modal-content -->
@@ -32,14 +32,14 @@
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Add</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span id="PP_close_add_modal" aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span id="PUR_close_add_modal" aria-hidden="true">&times;</span></button>
           </div>
           <div class="modal-body">
             <form method="post">
 
-              <div class="input-group date mb-3" id="reservationdate" data-target-input="nearest">
-                <input type="button" id="PP_add_ed" readonly class="form-control datetimepicker-input" data-target="#reservationdate" value="{{ curr_date }}" />
-                <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+              <div class="input-group date mb-3" id="reservationdate_5" data-target-input="nearest">
+                <input type="button" id="PUR_add_ed"  class="form-control datetimepicker-input" data-target="#reservationdate_5" value="{{ curr_date }}" />
+                <div class="input-group-append" data-target="#reservationdate_5" data-toggle="datetimepicker">
                   <div class="input-group-text">
                     <i class="fa fa-calendar"></i>
                   </div>
@@ -47,26 +47,21 @@
               </div>
 
               <div class="input-group mb-3">
-                <input type="number" id="PP_add_sp" class="form-control" placeholder="Selling price" value="" />
+                <input type="number" id="PUR_add_purchase" class="form-control" placeholder="Purchased" value="" />
               </div>
+
               <div class="input-group mb-3">
-                <input type="number" id="PP_add_cp" class="form-control" placeholder="Cost Price" value="" />
-              </div>
-              <div class="input-group mb-3">
-                <input type="number" id="PP_add_gk" class="form-control" placeholder="Ghar Kharch" value="" />
-              </div>
-              <div class="input-group mb-3">
-                <input type="text" id="PP_add_desc" class="form-control" placeholder="Desc" value="" />
+                <input type="text" id="PUR_add_desc" class="form-control" placeholder="Desc" value="" />
               </div>
               <div class="row">
                 <div class="col-4">
-                  <button onclick="PP_price_entry()" type="submit" class="btn btn-primary btn-block">Submit</button>
+                  <button onclick="PUR_purchase_entry()" type="submit" class="btn btn-primary btn-block">Submit</button>
                 </div>
                 <!-- /.col -->
               </div>
             </form>
 
-            <p id="PP_add_message"></p>
+            <p id="PUR_add_message"></p>
           </div>
         </div>
         <!-- /.modal-content -->
@@ -80,32 +75,26 @@
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Update</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span id="PP_close_update_modal" aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span id="PUR_close_update_modal" aria-hidden="true">&times;</span></button>
           </div>
           <div class="modal-body">
             <form method="post">
 
               <div class="input-group mb-3">
-                <input type="number" id="PP_update_sp" class="form-control" placeholder="Selling price" value="0" />
+                <input type="number" id="PUR_update_purchase" class="form-control" placeholder="Purchased" value="0" />
               </div>
+
               <div class="input-group mb-3">
-                <input type="number" id="PP_update_cp" class="form-control" placeholder="Cost Price" value="0" />
-              </div>
-              <div class="input-group mb-3">
-                <input type="number" id="PP_update_gk" class="form-control" placeholder="Ghar Kharch" value="0" />
-              </div>
-              <div class="input-group mb-3">
-                <input type="text" id="PP_update_desc" class="form-control" placeholder="Desc" value="" />
+                <input type="text" id="PUR_update_desc" class="form-control" placeholder="Desc" value="" />
               </div>
 
               <div class="row">
                 <div class="col-4">
                   <div class="modal-footer justify-content-between">
-                    <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-                    <div id="PP_update">
+                    <div id="PUR_update">
                       <button type="submit" class="btn btn-default">Submit</button>
                     </div>
-                    <div id="PP_update_message"></div>
+                    <div id="PUR_update_message"></div>
                   </div>
                 </div>
                 <!-- /.col -->
@@ -126,73 +115,79 @@
           <div class="col-md-6">
             <div class="card card-primary">
               <div class="card-body">
-                
+
                 <!--FORM FOR SEARCHING THROUGH DATE-->
                 <form method="post">
                   <div class="row">
                     <div class="col-8">
-                      <div class="input-group date" id="reservationdate_4" data-target-input="nearest">
-                        <input type="button" id="PP_search_date" class="form-control datetimepicker-input" data-target="#reservationdate_4" value="{{ date_2 }}" />
-                        <div class="input-group-append" data-target="#reservationdate_4" data-toggle="datetimepicker">
+
+                      <div class="input-group date" id="reservationdate_6" data-target-input="nearest">
+                        <input type="button" id="PP_start_search_date" class="form-control datetimepicker-input" data-target="#reservationdate_6" value="{{ s_date }}" />
+                        <div class="input-group-append" data-target="#reservationdate_6" data-toggle="datetimepicker">
                           <div class="input-group-text">
                             <i class="fa fa-calendar"></i>
                           </div>
                         </div>
                       </div>
+
+                      <div class="input-group date" id="reservationdate_7" data-target-input="nearest">
+                        <input type="button" id="PP_end_search_date" class="form-control datetimepicker-input" data-target="#reservationdate_7" value="{{ e_date }}" />
+                        <div class="input-group-append" data-target="#reservationdate_7" data-toggle="datetimepicker">
+                          <div class="input-group-text">
+                            <i class="fa fa-calendar"></i>
+                          </div>
+                        </div>
+                      </div>
+
                     </div>
                     <div class="col-4">
-                      <button type="submit" onclick="PP_tables()" class="btn btn-primary btn-block">Submit</button>
+                      <button type="submit" onclick="PUR_tables()" class="btn btn-primary btn-block">Submit</button>
                     </div>
-                    <div id="PP_search_message"></div>
-                  </div>
+                    <div id="PUR_search_message"></div>
+                  </div
                 </form>
 
               </div>
             </div>
           </div>
-          
+
           <!--ADD BUTTON-->
-          <button data-toggle="modal" data-target="#modal-xl1" class="btn btn-primary btn-block">Add</button>
-          
+
+          <button type="button"  data-toggle="modal" data-target="#modal-xl1" class="btn btn-primary btn-block">Add</button>
+
           <div class="col-md-6">
             <div class="card-body">
               <div>
                 <!--SHOWING BALANCE-->
-                <div id="PP_balance"><h4>Balance: {{ balance }}</h4></div>
+
+                <div id="PUR_TO_PAY"><h4>To Pay : {{ total_to_pay }}</h4></div>
+                <div id="PUR_PAID_EXTRA"><h4>Paid Extra: {{ total_paid_extra }}</h4></div>
+
                 <!--SHOWING THE TABLE BEFORE SEARCH-->
                 <table class="table table-bordered">
                   <thead>
                     <tr style="background-color: black;">
                       <th>Edit/Delete</th>
-                      <th>SP</th>
-                      <th>CP</th>
-                      <th>PR</th>
-                      <th>GK</th>
+                      <th>Date</th>
+                      <th>Purchased</th>
+                      <th>To pay</th>
                       <th>Desc</th>
                     </tr>
                   </thead>
-                  <tbody id="PP_table_rows">
-                    {% for num in table %}
+                  <tbody id="PUR_table_rows">
+                    {% for num in l1 %}
                       <tr>
                         <td>
-                          <button onclick="PP_edit_load({{ num.id }},{{ num.selling_price }},{{ num.cost_price }},{{ num.ghar_kharch }},{{ num.profit }},'{{ num.desc }}','{{ date_2 }}')" type="button" data-toggle="modal" data-target="#modal-xl"><i class="fa-solid fa-pen"></i></button>
-                          <button onclick="PP_del_load({{ num.id }},'{{ date_2 }}')" type="button" data-toggle="modal" data-target="#modal-sm"><i class="fa-solid fa-trash"></i></button>
+                          <button onclick="PUR_edit_load({{ num.id }},{{ num.purchase }},'{{ num.desc }}','{{ s_date }}','{{ e_date }}')" type="button" data-toggle="modal" data-target="#modal-xl"><i class="fa-solid fa-pen"></i></button>
+                          <button onclick="PUR_del_load({{ num.id }},'{{ s_date }}','{{ e_date }}')" type="button" data-toggle="modal" data-target="#modal-sm"><i class="fa-solid fa-trash"></i></button>
                         </td>
-                        <td style="height: 78px; font-size: larger;">{{ num.selling_price }}</td>
-                        <td style="height: 78px; font-size: larger;">{{ num.cost_price }}</td>
-                        <td style="height: 78px; font-size: larger;">{{ num.profit }}</td>
-                        <td style="height: 78px; font-size: larger;">{{ num.ghar_kharch }}</td>
+                        <td style="height: 78px; font-size: larger;">{{ num.date }}</td>
+                        <td style="height: 78px; font-size: larger;">{{ num.purchase }}</td>
+                        <td style="height: 78px; font-size: larger;">{{ num.to_pay }}</td>
                         <td style="height: 78px; font-size: larger;">{{ num.desc }}</td>
                       </tr>
                     {% endfor %}
-                    <tr>
-                      <td></td>
-                      <td style="height: 78px; font-size: larger; ">T = {{ sp }}</td>
-                      <td style="height: 78px; font-size: larger;">T = {{ cp }}</td>
-                      <td style="height: 78px; font-size: larger;">T = {{ pf }}</td>
-                      <td style="height: 78px; font-size: larger;">T = {{ gk }}</td>
-                      <td></td>
-                    </tr>
+
                   </tbody>
                 </table>
 

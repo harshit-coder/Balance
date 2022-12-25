@@ -84,13 +84,14 @@ def dates_range2(res, start_date):
     try:
         l1 = []
         for i in range(1, res + 1):
+            print(i)
             l1.append(start_date.strftime("%d/%m/%Y"))
             start_date = start_date + datetime.timedelta(days=1)
         print(l1)
         return l1
     except Exception as e:
         print(res,type)
-        raise BadRequest(e)
+        raise e
 
 
 def fetch_personal_purchase_results(rang_e):
@@ -142,8 +143,17 @@ def sp_cp_gk_validation(data):
             raise BadRequestException("Please enter something")
         return selling_price,cost_price,ghar_kharch
     except Exception as e:
-        raise BadRequest(e)
+        raise e
 
+
+def purchase_validation(data):
+    try:
+        purchase = int(data.get("purchase")) if data.get("purchase") and len(str(data.get("purchase").strip())) > 0 else 0
+        if purchase == 0:
+            raise BadRequestException("Please enter something")
+        return purchase
+    except Exception as e:
+        raise e
 
 def date_validation(entered_date):
     if entered_date and len(str(entered_date).strip()) > 0:
@@ -175,7 +185,6 @@ def date_compare(s_date,e_date):
 def fetch_purchase_data(rang_e=None,s_date=None,e_date=None):
     try:
         conn, cur = create_comection()
-        total_purchased=None
         to_pay = 0
         paid_extra = 0
         l1 = []
@@ -191,22 +200,28 @@ def fetch_purchase_data(rang_e=None,s_date=None,e_date=None):
         sql = 'SELECT * FROM purchase_details ORDER BY id DESC'
         cur.execute(sql)
         l2 = cur.fetchall()
-        if total_purchased is not  None or len(total_purchased) != 0:
-            if total_purchased[0] >= sum_paid[0]:
-                total_to_pay = total_purchased[0] - sum_paid[0]
+        if total_purchased[0] is not None:
+            if  sum_paid[0] is not None:
+                if total_purchased[0] >= sum_paid[0]:
+                    total_to_pay = total_purchased[0] - sum_paid[0]
+                else:
+                    total_paid_extra = sum_paid[0] - total_purchased[0]
             else:
-                total_paid_extra = sum_paid[0] - total_purchased[0]
+                total_to_pay= total_purchased[0]
+                total_paid_extra=0
 
             if len(l2) > 0:
-                for i in l2:
+                for i in l2[::-1]:
                     purchase = purchase + i[3]
-                    if purchase <= sum_paid[0]:
-                        dif = 0
-                        
+                    if sum_paid[0] is not None:
+                        if purchase <= sum_paid[0]:
+                            dif = 0
+
+                        else:
+                            dif = purchase - sum_paid[0] - to_pay
+                            to_pay = to_pay + dif
                     else:
-                        dif = purchase - sum_paid[0] - to_pay
-                        to_pay = to_pay + dif
-                        
+                        dif = i[3]
                     d1 = {'time': i[2],
                                 'date': i[1],
                                 'id': i[0],
@@ -222,7 +237,7 @@ def fetch_purchase_data(rang_e=None,s_date=None,e_date=None):
         conn.commit()
         cur.close()
         conn.close()
-        return {"table":l1, "to_pay":total_to_pay,paid_extra:total_paid_extra,"s_date":s_date, "e_date":e_date,"curr_date": datetime.date.today().strftime("%d/%m/%Y")} 
+        return {"l1":l1, "total_to_pay":total_to_pay,"total_paid_extra":total_paid_extra,"s_date":s_date, "e_date":e_date,"curr_date": datetime.date.today().strftime("%d/%m/%Y")}
 
     except Exception as e:
         raise e
