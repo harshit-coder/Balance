@@ -39,7 +39,9 @@
     <link rel="stylesheet" href="{{url_for('static', filename = 'style.css')}}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="{{url_for('static', filename = './node_modules/axios/dist/axios.min.js')}}"></script>
-    <script src="{{url_for('static', filename = 'Operations.js')}}"></script>
+<script src="{{url_for('static', filename = 'common.js')}}"></script>
+<script src="{{url_for('static', filename = 'Operations.js')}}"></script>
+<script src="{{url_for('static', filename = 'purchase.js')}}"></script>
 
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -106,6 +108,25 @@
                   </p>
                 </a>
               </li>
+
+              <li  class="nav-item">
+                <a id="his-nav" href="/purchase" class="nav-link">
+                  <i class="nav-icon fas fa-table"></i>
+                  <p>
+                   Purchases
+                  </p>
+                </a>
+              </li>
+
+              <li  class="nav-item">
+                <a id="his-nav" href="/purchase_table_history" class="nav-link">
+                  <i class="nav-icon fas fa-copy"></i>
+                  <p>
+                   Purchases History
+                  </p>
+                </a>
+              </li>
+
             </ul>
           </nav>
       <!-- /.sidebar-menu -->
@@ -182,6 +203,15 @@
     $('#reservationdate_4').datetimepicker({
       format: 'DD/MM/YYYY'
   });
+  $('#reservationdate_5').datetimepicker({
+    format: 'DD/MM/YYYY'
+});
+  $('#reservationdate_6').datetimepicker({
+    format: 'DD/MM/YYYY'
+});
+$('#reservationdate_7').datetimepicker({
+  format: 'DD/MM/YYYY'
+});
 
     //Date and time picker
     $('#reservationdatetime').datetimepicker({ icons: { time: 'far fa-clock' } });

@@ -1,3 +1,4 @@
+from copy import deepcopy
 import datetime
 from werkzeug.exceptions import BadRequest
 
@@ -27,7 +28,7 @@ class BadRequestException(Exception):
         super().__init__(message)
 
 
-def fetch_balance_price_data(date):
+def fetch_balance_price_data(date=None):
     try:
         conn, cur = create_comection()
         sp = 0
@@ -36,7 +37,10 @@ def fetch_balance_price_data(date):
         pf = 0
         l1 = []
         balance = 0
-        sql = 'SELECT * FROM balance_price where date = \'{}\' ORDER BY id'.format(date)
+        if date is not None:
+            sql = 'SELECT * FROM balance_price where date = \'{}\' ORDER BY id'.format(date)
+        else:
+            sql = 'SELECT * FROM balance_price ORDER BY id DESC'
         cur.execute(sql)
         l2 = cur.fetchall()
         if len(l2) > 0:
@@ -154,9 +158,9 @@ def date_validation(entered_date):
         raise BadRequest("Please give a valid dates")
 
 
-def date_compare(data):
-    start_date = data.get('s_date')
-    end_date = data.get('e_date')
+def date_compare(s_date,e_date):
+    start_date = s_date
+    end_date = e_date
     date_validation(start_date)
     date_validation(end_date)
     start_date_1 = datetime.date(int(start_date.split("/")[2]), int(start_date.split("/")[1]),
@@ -166,3 +170,60 @@ def date_compare(data):
     if start_date_1 > end_date_1:
         raise BadRequest("Please enter proper dates")
     return start_date_1,end_date_1
+
+
+def fetch_purchase_data(rang_e=None,s_date=None,e_date=None):
+    try:
+        conn, cur = create_comection()
+        total_purchased=None
+        to_pay = 0
+        paid_extra = 0
+        l1 = []
+        purchase = 0
+        total_to_pay=0
+        total_paid_extra=0
+        sql = 'SELECT SUM(purchase_amount) FROM purchase_details'
+        cur.execute(sql)
+        total_purchased = cur.fetchone()
+        sql = 'SELECT SUM(amount_paid) FROM amount_paid_details'
+        cur.execute(sql)
+        sum_paid = cur.fetchone() 
+        sql = 'SELECT * FROM purchase_details ORDER BY id DESC'
+        cur.execute(sql)
+        l2 = cur.fetchall()
+        if total_purchased is not  None or len(total_purchased) != 0:
+            if total_purchased[0] >= sum_paid[0]:
+                total_to_pay = total_purchased[0] - sum_paid[0]
+            else:
+                total_paid_extra = sum_paid[0] - total_purchased[0]
+
+            if len(l2) > 0:
+                for i in l2:
+                    purchase = purchase + i[3]
+                    if purchase <= sum_paid[0]:
+                        dif = 0
+                        
+                    else:
+                        dif = purchase - sum_paid[0] - to_pay
+                        to_pay = to_pay + dif
+                        
+                    d1 = {'time': i[2],
+                                'date': i[1],
+                                'id': i[0],
+                                'purchase': i[3],
+                                'to_pay':dif,
+                                'desc':i[5]}
+                    if rang_e is  None:
+                        l1.append(deepcopy(d1))
+                    else:
+                        if i[1] in rang_e:
+                            l1.append(deepcopy(d1))
+
+        conn.commit()
+        cur.close()
+        conn.close()
+        return {"table":l1, "to_pay":total_to_pay,paid_extra:total_paid_extra,"s_date":s_date, "e_date":e_date,"curr_date": datetime.date.today().strftime("%d/%m/%Y")} 
+
+    except Exception as e:
+        raise e
+ 
