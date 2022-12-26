@@ -144,33 +144,6 @@ async function PUR_update(id, sc_date, ec_date) {
 
 }
 
-async function PP_result() {
-    try {
-        event.preventDefault();
-        const s_date = document.getElementById("PP_s_date").value
-        const e_date = document.getElementById("PP_e_date").value
-        date_compare(s_date, e_date)
-        const r_data = { s_date: s_date,e_date: e_date};
-
-        const response = await axios.post(host + 'personal_purchase_table_results', r_data);
-        const data = response.data
-        document.getElementById("PP_s_date").value = s_date
-        document.getElementById("PP_e_date").value = e_date
-
-        document.getElementById("PP_res_head").innerHTML = `<h3>${data['month']}</h3>`
-        document.getElementById("PP_res_sp").innerHTML = `<span class="info-box-number">${data['sum_sp']}</span>`
-        document.getElementById("PP_res_cp").innerHTML =`<span class="info-box-number">${data['sum_cp']}</span>`
-        document.getElementById("PP_res_gk").innerHTML = `<span class="info-box-number">${data['sum_gk']}</span>`
-        document.getElementById("PP_res_profit").innerHTML = `<span class="info-box-number">${data['profit']}</span>`
-        document.getElementById("PP_res_balance").innerHTML = `<span class="info-box-number">${data['balance']}</span>`
-        document.getElementById('PP_res_message').value = ''
-
-    } catch (errors) {
-        console.log("errors", errors);
-        const message = errors["message"]
-        document.getElementById('PP_res_message').innerHTML = `<p>${errors["message"]}</p>`
-    }
-}
 
 
 

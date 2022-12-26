@@ -9,16 +9,13 @@
           <div class="col-md-6">
             <div id="daily_table_today" class="card-body">
               <div>
-                 <div id="PUR_TO_PAY"><h4>To Pay : {{ total_to_pay }}</h4></div>
-                <div id="PUR_PAID_EXTRA"><h4>Paid Extra: {{ total_paid_extra }}</h4></div>
-
+            
                 <table class="table table-bordered">
                   <thead>
                     <tr style="background-color: black;">
                       <th>Date</th>
                       <th>Time</th>
-                      <th>Purchase</th>
-                      <th>To Pay</th>
+                      <th>Paid</th>
                       <th>Desc</th>
                     </tr>
                   </thead>
@@ -27,8 +24,7 @@
                       <tr>
                         <td style="height: 78px; font-size: larger;">{{ num.date }}</td>
                         <td style="height: 78px; font-size: larger;">{{ num.time }}</td>
-                        <td style="height: 78px; font-size: larger;">{{ num.purchase }}</td>
-                        <td style="height: 78px; font-size: larger;">{{ num.to_pay }}</td>
+                        <td style="height: 78px; font-size: larger;">{{ num.paid }}</td>
                         <td style="height: 78px; font-size: larger;">{{ num.desc }}</td>
 
                       </tr>

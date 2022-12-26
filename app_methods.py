@@ -38,9 +38,9 @@ def fetch_balance_price_data(date=None):
         l1 = []
         balance = 0
         if date is not None:
-            sql = 'SELECT * FROM balance_price where date = \'{}\' ORDER BY id'.format(date)
+            sql = 'SELECT * FROM balance_price where date = \'{}\' ORDER BY STR_TO_DATE(date, "%d/%m/%Y") DESC , id desc '.format(date)
         else:
-            sql = 'SELECT * FROM balance_price ORDER BY id DESC'
+            sql = 'SELECT * FROM balance_price ORDER BY STR_TO_DATE(date, "%d/%m/%Y") DESC ,id DESC'
         cur.execute(sql)
         l2 = cur.fetchall()
         if len(l2) > 0:
@@ -105,9 +105,9 @@ def fetch_personal_purchase_results(rang_e):
         
         if len(rang_e) == 1:
             one_date = rang_e[0]
-            sql_sp = 'SELECT SUM(selling_price) FROM balance_price where date = {}'.format(one_date)
-            sql_cp = 'SELECT SUM(cost_price) FROM balance_price where date = {}'.format(one_date)
-            sql_gk = 'SELECT SUM(ghar_kharch) FROM balance_price where date = {}'.format(one_date)
+            sql_sp = 'SELECT SUM(selling_price) FROM balance_price where date =  \'{}\''.format(one_date)
+            sql_cp = 'SELECT SUM(cost_price) FROM balance_price where date =  \'{}\''.format(one_date)
+            sql_gk = 'SELECT SUM(ghar_kharch) FROM balance_price where date =  \'{}\''.format(one_date)
         else:  
         
             sql_sp = 'SELECT SUM(selling_price) FROM balance_price where date IN {}'.format(rang_e)
@@ -146,9 +146,9 @@ def sp_cp_gk_validation(data):
         raise e
 
 
-def purchase_validation(data):
+def purchase_validation(amt):
     try:
-        purchase = int(data.get("purchase")) if data.get("purchase") and len(str(data.get("purchase").strip())) > 0 else 0
+        purchase = int(amt) if amt and len(str(amt).strip()) > 0 else 0
         if purchase == 0:
             raise BadRequestException("Please enter something")
         return purchase
@@ -182,6 +182,39 @@ def date_compare(s_date,e_date):
     return start_date_1,end_date_1
 
 
+def fetch_paid_data(rang_e=None,s_date=None,e_date=None):
+    try:
+        conn, cur = create_comection()
+        l1=[]
+        if rang_e is not None:
+            if len(rang_e) == 1:
+                one_date = rang_e[0]
+
+                sql = 'SELECT * FROM amount_paid_details where date =  \'{}\' ORDER BY id desc'.format(one_date)
+            else:  
+                sql = 'SELECT * FROM amount_paid_details where date IN {} ORDER BY STR_TO_DATE(date, "%d/%m/%Y") DESC , id desc'.format(rang_e)
+        else:
+            sql = 'SELECT * FROM amount_paid_details ORDER BY STR_TO_DATE(date, "%d/%m/%Y") DESC , id desc'
+        cur.execute(sql)
+        l2 = cur.fetchall()
+        if len(l2) > 0:
+            for i in l2:
+                l1.append({'time': i[2],
+                        'date': i[1],
+                        'id': i[0],
+                        'paid': i[3],
+                        'desc': i[4]})
+
+        conn.commit()
+        cur.close()
+        conn.close()
+        return {"l1":l1,"s_date":s_date, "e_date":e_date,"curr_date": datetime.date.today().strftime("%d/%m/%Y")}
+
+    except Exception as e:
+        raise e
+    
+
+
 def fetch_purchase_data(rang_e=None,s_date=None,e_date=None):
     try:
         conn, cur = create_comection()
@@ -197,7 +230,7 @@ def fetch_purchase_data(rang_e=None,s_date=None,e_date=None):
         sql = 'SELECT SUM(amount_paid) FROM amount_paid_details'
         cur.execute(sql)
         sum_paid = cur.fetchone() 
-        sql = 'SELECT * FROM purchase_details ORDER BY id DESC'
+        sql = 'SELECT * FROM purchase_details ORDER BY STR_TO_DATE(date, "%d/%m/%Y") ASC , id ASC'
         cur.execute(sql)
         l2 = cur.fetchall()
         if total_purchased[0] is not None:
@@ -211,7 +244,7 @@ def fetch_purchase_data(rang_e=None,s_date=None,e_date=None):
                 total_paid_extra=0
 
             if len(l2) > 0:
-                for i in l2[::-1]:
+                for i in l2:
                     purchase = purchase + i[3]
                     if sum_paid[0] is not None:
                         if purchase <= sum_paid[0]:

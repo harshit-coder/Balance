@@ -42,6 +42,7 @@
 <script src="{{url_for('static', filename = 'common.js')}}"></script>
 <script src="{{url_for('static', filename = 'Operations.js')}}"></script>
 <script src="{{url_for('static', filename = 'purchase.js')}}"></script>
+<script src="{{url_for('static', filename = 'paid.js')}}"></script>
 
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -137,7 +138,7 @@
               </li>
 
                   <li  class="nav-item">
-                <a id="his-nav" href="/paid_history" class="nav-link">
+                <a id="his-nav" href="/paid_table_history" class="nav-link">
                   <i class="nav-icon fas fa-copy"></i>
                   <p>
                    Paid History
@@ -228,6 +229,15 @@
         format: 'DD/MM/YYYY'
     });
     $('#reservationdate_7').datetimepicker({
+      format: 'DD/MM/YYYY'
+    });
+    $('#reservationdate_8').datetimepicker({
+      format: 'DD/MM/YYYY'
+    });
+    $('#reservationdate_9').datetimepicker({
+      format: 'DD/MM/YYYY'
+    });
+    $('#reservationdate_10').datetimepicker({
       format: 'DD/MM/YYYY'
     });
 

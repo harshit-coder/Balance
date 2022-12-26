@@ -8,17 +8,17 @@
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Delete</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span id="PUR_close_delete_modal" aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span id="PA_close_delete_modal" aria-hidden="true">&times;</span></button>
           </div>
           <div class="modal-body">
             <p>Do you want to delete this row ?</p>
           </div>
           <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-            <div id="PUR_delete">
+            <div id="PA_delete">
               <button type="submit" class="btn btn-default">Yes</button>
             </div>
-            <div id="PUR_del_message"></div>
+            <div id="PA_del_message"></div>
           </div>
         </div>
         <!-- /.modal-content -->
@@ -32,14 +32,14 @@
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Add</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span id="PUR_close_add_modal" aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span id="PA_close_add_modal" aria-hidden="true">&times;</span></button>
           </div>
           <div class="modal-body">
             <form method="post">
 
-              <div class="input-group date mb-3" id="reservationdate_5" data-target-input="nearest">
-                <input type="button" id="PUR_add_ed"  class="form-control datetimepicker-input" data-target="#reservationdate_5" value="{{ curr_date }}" />
-                <div class="input-group-append" data-target="#reservationdate_5" data-toggle="datetimepicker">
+              <div class="input-group date mb-3" id="reservationdate_8" data-target-input="nearest">
+                <input type="button" id="PA_add_ed"  class="form-control datetimepicker-input" data-target="#reservationdate_8" value="{{ curr_date }}" />
+                <div class="input-group-append" data-target="#reservationdate_8" data-toggle="datetimepicker">
                   <div class="input-group-text">
                     <i class="fa fa-calendar"></i>
                   </div>
@@ -47,21 +47,21 @@
               </div>
 
               <div class="input-group mb-3">
-                <input type="number" id="PUR_add_purchase" class="form-control" placeholder="Purchased" value="" />
+                <input type="number" id="PA_add_paid" class="form-control" placeholder="Paid" value="" />
               </div>
 
               <div class="input-group mb-3">
-                <input type="text" id="PUR_add_desc" class="form-control" placeholder="Desc" value="" />
+                <input type="text" id="PA_add_desc" class="form-control" placeholder="Desc" value="" />
               </div>
               <div class="row">
                 <div class="col-4">
-                  <button onclick="PUR_purchase_entry()" type="submit" class="btn btn-primary btn-block">Submit</button>
+                  <button onclick="PA_paid_entry()" type="submit" class="btn btn-primary btn-block">Submit</button>
                 </div>
                 <!-- /.col -->
               </div>
             </form>
 
-            <p id="PUR_add_message"></p>
+            <p id="PA_add_message"></p>
           </div>
         </div>
         <!-- /.modal-content -->
@@ -75,26 +75,26 @@
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Update</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span id="PUR_close_update_modal" aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span id="PA_close_update_modal" aria-hidden="true">&times;</span></button>
           </div>
           <div class="modal-body">
             <form method="post">
 
               <div class="input-group mb-3">
-                <input type="number" id="PUR_update_purchase" class="form-control" placeholder="Purchased" value="0" />
+                <input type="number" id="PA_update_paid" class="form-control" placeholder="Paid" value="0" />
               </div>
 
               <div class="input-group mb-3">
-                <input type="text" id="PUR_update_desc" class="form-control" placeholder="Desc" value="" />
+                <input type="text" id="PA_update_desc" class="form-control" placeholder="Desc" value="" />
               </div>
 
               <div class="row">
                 <div class="col-4">
                   <div class="modal-footer justify-content-between">
-                    <div id="PUR_update">
+                    <div id="PA_update">
                       <button type="submit" class="btn btn-default">Submit</button>
                     </div>
-                    <div id="PUR_update_message"></div>
+                    <div id="PA_update_message"></div>
                   </div>
                 </div>
                 <!-- /.col -->
@@ -121,18 +121,18 @@
                   <div class="row">
                     <div class="col-8">
 
-                      <div class="input-group date" id="reservationdate_6" data-target-input="nearest">
-                        <input type="button" id="PP_start_search_date" class="form-control datetimepicker-input" data-target="#reservationdate_6" value="{{ s_date }}" />
-                        <div class="input-group-append" data-target="#reservationdate_6" data-toggle="datetimepicker">
+                      <div class="input-group date" id="reservationdate_9" data-target-input="nearest">
+                        <input type="button" id="PA_start_search_date" class="form-control datetimepicker-input" data-target="#reservationdate_9" value="{{ s_date }}" />
+                        <div class="input-group-append" data-target="#reservationdate_9" data-toggle="datetimepicker">
                           <div class="input-group-text">
                             <i class="fa fa-calendar"></i>
                           </div>
                         </div>
                       </div>
 
-                      <div class="input-group date" id="reservationdate_7" data-target-input="nearest">
-                        <input type="button" id="PP_end_search_date" class="form-control datetimepicker-input" data-target="#reservationdate_7" value="{{ e_date }}" />
-                        <div class="input-group-append" data-target="#reservationdate_7" data-toggle="datetimepicker">
+                      <div class="input-group date" id="reservationdate_10" data-target-input="nearest">
+                        <input type="button" id="PA_end_search_date" class="form-control datetimepicker-input" data-target="#reservationdate_10" value="{{ e_date }}" />
+                        <div class="input-group-append" data-target="#reservationdate_10" data-toggle="datetimepicker">
                           <div class="input-group-text">
                             <i class="fa fa-calendar"></i>
                           </div>
@@ -141,9 +141,9 @@
 
                     </div>
                     <div class="col-4">
-                      <button type="submit" onclick="PUR_tables()" class="btn btn-primary btn-block">Submit</button>
+                      <button type="submit" onclick="PA_tables()" class="btn btn-primary btn-block">Submit</button>
                     </div>
-                    <div id="PUR_search_message"></div>
+                    <div id="PA_search_message"></div>
                   </div
                 </form>
 
@@ -160,30 +160,26 @@
               <div>
                 <!--SHOWING BALANCE-->
 
-                <div id="PUR_TO_PAY"><h4>To Pay : {{ total_to_pay }}</h4></div>
-                <div id="PUR_PAID_EXTRA"><h4>Paid Extra: {{ total_paid_extra }}</h4></div>
-
+            
                 <!--SHOWING THE TABLE BEFORE SEARCH-->
                 <table class="table table-bordered">
                   <thead>
                     <tr style="background-color: black;">
                       <th>Edit/Delete</th>
                       <th>Date</th>
-                      <th>Purchased</th>
-                      <th>To pay</th>
+                      <th>Paid</th>
                       <th>Desc</th>
                     </tr>
                   </thead>
-                  <tbody id="PUR_table_rows">
+                  <tbody id="PA_table_rows">
                     {% for num in l1 %}
                       <tr>
                         <td>
-                          <button onclick="PUR_edit_load({{ num.id }},{{ num.purchase }},'{{ num.desc }}','{{ s_date }}','{{ e_date }}')" type="button" data-toggle="modal" data-target="#modal-xl"><i class="fa-solid fa-pen"></i></button>
-                          <button onclick="PUR_del_load({{ num.id }},'{{ s_date }}','{{ e_date }}')" type="button" data-toggle="modal" data-target="#modal-sm"><i class="fa-solid fa-trash"></i></button>
+                          <button onclick="PA_edit_load({{ num.id }},{{ num.paid }},'{{ num.desc }}','{{ s_date }}','{{ e_date }}')" type="button" data-toggle="modal" data-target="#modal-xl"><i class="fa-solid fa-pen"></i></button>
+                          <button onclick="PA_del_load({{ num.id }},'{{ s_date }}','{{ e_date }}')" type="button" data-toggle="modal" data-target="#modal-sm"><i class="fa-solid fa-trash"></i></button>
                         </td>
                         <td style="height: 78px; font-size: larger;">{{ num.date }}</td>
-                        <td style="height: 78px; font-size: larger;">{{ num.purchase }}</td>
-                        <td style="height: 78px; font-size: larger;">{{ num.to_pay }}</td>
+                        <td style="height: 78px; font-size: larger;">{{ num.paid }}</td>
                         <td style="height: 78px; font-size: larger;">{{ num.desc }}</td>
                       </tr>
                     {% endfor %}
