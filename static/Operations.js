@@ -1,5 +1,5 @@
-// const host = 'https://balanceapp.pythonanywhere.com/'
-const host = 'http://127.0.0.1:5002/'
+const host = 'https://balanceapp.pythonanywhere.com/'
+// const host = 'http://127.0.0.1:5002/'
 
 
 function sp_cp_gk_validation(sp, cp, gk) {
