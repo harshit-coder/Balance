@@ -48,6 +48,8 @@ def personal_purchase_table_results():
         year = datetime.datetime.now().year
         if month != 1:
             start_date = datetime.datetime(year, prev_month, 1)
+        elif month == 1:
+            start_date= datetime.datetime(year-1,12,1)
         else:
             start_date = datetime.datetime(year - 1, prev_month, 1)
         tuple_dr = dates_range_by_month(start_date)
