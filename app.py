@@ -360,6 +360,7 @@ def purchase_table_add():
             data = request.json
             amt = purchase_validation(data.get('purchase'))
             ed = date_validation(data.get('ed'))
+            print(ed)
             desc = data.get('desc').strip()
             time_of_inserting = time.strftime("%I:%M %p")
             sql= "INSERT INTO purchase_details (`date`, `time`, purchase_amount, `Full paid`, `desc`) VALUES(%s, %s, %s, 0, %s);"
