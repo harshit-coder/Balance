@@ -338,12 +338,15 @@ def personal_purchase_table_add():
             conn, cur = create_comection()
             data = request.json
             sp, cp, gk = sp_cp_gk_validation(data)
-            ed = date_validation(data.get('ed'))
+            dte = data.get('ed')
+            print(dte)
+            ed = date_validation(dte)
+            print(ed)
             desc = data.get('desc').strip()
             profit = sp - cp
             time_of_inserting = time.strftime("%I:%M %p")
             sql = 'INSERT INTO balance_price (selling_price, cost_price, ghar_kharch, profit,date,time,description)VALUES (%s, %s, %s, %s,%s, %s, %s)'
-            cur.execute(sql, (sp, cp, gk, profit, ed, time_of_inserting, desc))
+            cur.execute(sql, (sp, cp, gk, profit, dte, time_of_inserting, desc))
             conn.commit()
             cur.close()
             conn.close()
