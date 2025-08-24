@@ -159,16 +159,26 @@ def purchase_validation(amt):
 
 def date_validation(entered_date):
     if entered_date and len(str(entered_date).strip()) > 0:
-        print(entered_date)
-        ed = datetime.date(int(entered_date.split("/")[2]), int(entered_date.split("/")[1]),
-                                     int(entered_date.split("/")[0]))
+        # Normalize format as safety net
+        parts = entered_date.split("/")
+        if len(parts) == 3:
+            day = parts[0].zfill(2)
+            month = parts[1].zfill(2)  
+            year = parts[2]
+            normalized_date = f"{day}/{month}/{year}"
+        else:
+            normalized_date = entered_date
+            
+        ed = datetime.date(int(normalized_date.split("/")[2]), 
+                          int(normalized_date.split("/")[1]),
+                          int(normalized_date.split("/")[0]))
+        
         if ed > datetime.date.today():
             raise BadRequest("Please don't enter future dates")
         else:
-            return entered_date
+            return normalized_date
     else:
-        raise BadRequest("Please give a valid dates")
-
+        raise BadRequest("Please give a valid date")
 
 def date_compare(s_date,e_date):
     start_date = s_date
