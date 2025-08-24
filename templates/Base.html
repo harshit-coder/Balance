@@ -240,7 +240,13 @@
     $('#reservationdate_10').datetimepicker({
       format: 'DD/MM/YYYY'
     });
-
+    $('#reservationdate, #reservationdate1, #reservationdate2, #reservationdate_4, #reservationdate_5, #reservationdate_6, #reservationdate_7, #reservationdate_8, #reservationdate_9, #reservationdate_10').on('change.datetimepicker', function(e) {
+    if (e.date) {
+        // Force DD/MM/YYYY format with zero padding
+        let formatted = e.date.format('DD/MM/YYYY');
+        $(this).find('input').val(formatted);
+    }
+    });
     //Date and time picker
     $('#reservationdatetime').datetimepicker({ icons: { time: 'far fa-clock' } });
 
