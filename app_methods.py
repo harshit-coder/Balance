@@ -84,13 +84,15 @@ def dates_range2(res, start_date):
     try:
         l1 = []
         for i in range(1, res + 1):
-            print(i)
+            # Remove: print(i)  # This causes BlockingIOError
             l1.append(start_date.strftime("%d/%m/%Y"))
             start_date = start_date + datetime.timedelta(days=1)
-        print(l1)
+        # Remove: print(l1)  # Also problematic
         return l1
     except Exception as e:
-        print(res,type)
+        # Replace: print(res,type) with proper logging
+        import logging
+        logging.error(f"dates_range2 error: {e}")
         raise e
 
 
